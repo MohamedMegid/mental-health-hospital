@@ -1,0 +1,211 @@
+<?php $__env->startSection('content-header'); ?>
+<!-- Main content -->
+<ol class="breadcrumb">
+    <li>
+        <a href="/admin/dashboard">
+            <i class="livicon" data-name="home" data-size="14" data-loop="true"></i>
+            الرئيسية
+        </a>
+    </li>
+    <li>
+        <a href="/admin/news">الاخبار</a>
+    </li>
+    <li class="active">عرض الاخبار</li>
+</ol>
+<?php $__env->stopSection(); ?>
+				<?php $__env->startSection('content'); ?>
+				<div class="row">
+				    <div class="col-md-12">
+				        <div class="panel panel-primary" id="hidepanel1">
+				                <div class="panel-heading">
+				                    <h3 class="panel-title">
+				                        <i class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+				                        بحث الاخبار
+				                    </h3>
+				                    <span class="pull-right">
+				                        <i class="glyphicon glyphicon-chevron-up clickable"></i>
+				                        <i class="glyphicon glyphicon-remove removepanel clickable"></i>
+				                    </span>
+				                </div>
+				                <div class="panel-body">
+				                <?php echo Form::open(array('method' => 'post', 'files'=>true, 'class' => 'form-inline')); ?>
+
+					                    
+					                    	<?php if(!empty($_GET['title'])): ?>
+						                        <div class="form-group" id="form-hidden-imd">
+						                          <label for="الاسم" style="">العنوان</label><br>
+						                          <?php echo Form::text('title', $_GET['title'], null, 
+						                              array('class'=>'form-control')); ?>
+
+						                        </div>
+					                        <?php else: ?>
+					                        	<div class="form-group" id="form-hidden-imd">
+						                          <label for="الاسم" style="">العنوان</label><br>
+						                          <?php echo Form::text('title', null, 
+						                              array('class'=>'form-control')); ?>
+
+						                        </div>
+						                    <?php endif; ?>
+						                    <?php if(!empty($_GET['importance'])): ?>
+						                        <div class="form-group">
+												    <?php echo Form::label('اهمية الخبر'); ?><br>
+												    <select id="side_contactus" name="importance" class="form-control">
+												        <option value="">--اختر--</option>
+												        <option value="1" <?php if ($_GET['importance'] == 1) echo "selected='selected'";?>>الاخبار المهمة</option>
+												        <option value="2" <?php if ($_GET['importance'] == 2) echo "selected='selected'";?>>الاخبار غير المهمة</option>
+												    </select>
+												</div>
+											<?php else: ?>
+												<div class="form-group">
+												    <?php echo Form::label('اهمية الخبر'); ?><br>
+												    <select id="side_contactus" name="importance" class="form-control">
+												        <option value="">--اختر--</option>
+												        <option value="1">الاخبار المهمة</option>
+												        <option value="2">الاخبار غير المهمة</option>
+												    </select>
+												</div>
+											<?php endif; ?>
+											<?php if(!empty($_GET['category'])): ?>
+						                        <div class="form-group">
+												    <?php echo Form::label('تصنيف الخبر'); ?><br>
+												    <select id="side_contactus" name="category" class="form-control">
+												        <option value="">--اختر--</option>
+												        <option value="1" <?php if ($_GET['category'] == 1) echo "selected='selected'";?>>اخبار عامة</option>
+												        <option value="2" <?php if ($_GET['category'] == 2) echo "selected='selected'";?>>اخبار تثقيفية</option>
+												        <option value="3" <?php if ($_GET['category'] == 3) echo "selected='selected'";?>>الانجازات</option>
+												    </select>
+												</div>
+											<?php else: ?>
+												<div class="form-group">
+												    <?php echo Form::label('تصنيف الخبر'); ?><br>
+												    <select id="side_contactus" name="category" class="form-control">
+												        <option value="">--اختر--</option>
+												        <option value="1">الاخبار العامة</option>
+												        <option value="2">الاخبار التثقيفية</option>
+												        <option value="3">الانجازات</option>
+												    </select>
+												</div>
+											<?php endif; ?>
+					                        <div class="form-group">
+					                            <input type="submit" name="search" value="بحث" class="btn btn-primary" style="margin-bottom: -22px;">
+					                        </div>
+				                </div>
+				        </div>
+				    </div>
+				</div>
+				<div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-primary filterable">
+                            <div class="panel-heading clearfix  ">
+                                <div class="panel-title pull-left">
+                                       <div class="caption">
+                                    <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                    جدول عرض الاخبار
+                                </div>
+                                    
+                                </div>
+                                <div class="tools pull-right"></div>
+
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-striped table-responsive" id="table1">
+                                	<?php if($news->count()): ?>
+	                                    <thead>
+	                                        <tr>
+	                                        	<th>
+                                                    <input type="checkbox" name="check_all" id="checkall" style="float:right;">
+                                                </th>
+	                                            <th>العنوان</th>
+	                                            <th>ملخص الخبر</th>
+	                                            <th>الصورة الرئيسية</th>
+	                                            <th>اهمية الخبر</th>
+	                                            <th>تصنيف الخبر</th>
+	                                            <th>
+	                                                العمليات
+	                                            </th>
+	                                        </tr>
+	                                    </thead>
+	                                    <tbody>
+                                    	<?php foreach($news as $single_news): ?>
+	                                        <tr>
+	                                        	<td>
+                                                    <input type="checkbox" name="check_list[<?php echo e($single_news->id); ?>]" class="check_list" value="<?php echo e($single_news->id); ?>">
+                                                </td>
+	                                            <td><?php echo e($single_news->title); ?></td>
+	                                            <td><?php echo e($single_news->summary); ?></td>
+	                                            <td><img src="/img/uploaded/<?php echo e($single_news->basic_photo); ?>" style="width:70px; height:50px; "></td>
+	                                            <?php if($single_news->importance == 1): ?>
+	                                            	<td style="color:#e9573f;">خبر مهم</td>
+	                                            <?php else: ?>
+	                                            	<td>خبر غير مهم</td>
+	                                            <?php endif; ?>
+	                                            <?php if($single_news->category_id == 1): ?>
+	                                            	<td style="color:#e9573f;">خبر عام</td>
+	                                            <?php elseif($single_news->category_id == 2): ?>
+	                                            	<td style="color:#418BCA;">خبر تثقيفي</td>
+	                                            <?php elseif($single_news->category_id == 3): ?>
+	                                            	<td style="color:rgb(55, 188, 155);">انجازات</td>
+	                                            <?php endif; ?>
+	                                            <td>
+	                                                <a href="/admin/news/<?php echo e($single_news->id); ?>/edit">تعديل</a> - 
+	                                                <a href="/admin/news/<?php echo e($single_news->id); ?>/delete">حذف</a>
+	                                            </td>
+	                                        </tr>
+	                                    <?php endforeach; ?>
+	                                <?php endif; ?>
+	                                <?php if(!($news->count())): ?>
+	                                	<div class="text-center"><h1>عفوا لا يوجد نتائج</h1> </div>
+	                                <?php endif; ?>
+                                    </tbody>
+                                </table>
+                                <?php if(count($news)): ?>
+		                            <div class="form-group">
+		                                <input type="submit" name="delete" value="مسح" class="btn btn-primary">
+		                            </div>
+		                        <?php endif; ?>
+                                <div> <i class="fa fa-folder-o"></i> إجمالي : <?php echo e($news->count()); ?> خبر </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+                <?php echo Form::close(); ?>
+
+                <div class="row">
+	                <div class="col-md-12">
+	                    <div class="product-pagination text-center">
+	                        <nav>
+	                            <ul class="pagination">
+	                                <?php echo $news->render(); ?>
+
+	                            </ul>
+	                        </nav>                        
+	                    </div>
+	                </div>
+	            </div>
+                <!-- row-->
+                <?php $__env->stopSection(); ?>
+                <?php $__env->startSection('script'); ?>
+                	<script>
+						    $('#checkall').change(function(event) {
+						        if(this.checked) {
+						            $('.check_list').each(function() {
+						                this.checked = true;
+						            });
+						        }
+						        else{
+						            $('.check_list').each(function() {
+						                this.checked = false;
+						            });        
+						        }
+						    });
+					</script>    
+                <?php $__env->stopSection(); ?>
+                <?php $__env->startSection('footer'); ?>
+                <style type="text/css">
+                	#form-hidden-imd{
+                		display: none;
+                	}
+                </style>
+                <?php $__env->stopSection(); ?>
+				<?php $__env->stopSection(); ?>
+<?php echo $__env->make('backend.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

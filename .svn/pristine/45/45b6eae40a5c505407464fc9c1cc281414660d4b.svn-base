@@ -1,0 +1,134 @@
+<?php $__env->startSection('content'); ?>
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>الاستشارات الطبية</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="single-product-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcroumb">
+                        <a href="#">الرئيسية</a> / 
+                        <a href="/med-consulting">قائمة الاستشارات الطبية</a>
+                    </div>
+                </div>
+            </div>
+            <?php echo Form::open(array('method' => 'post')); ?>
+
+            <div class="row">
+                <div class="col-md-12">
+            <!-- BEGIN SAMPLE TABLE PORTLET-->
+                    <div class="portlet box primary">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="livicon" data-name="responsive" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                    جدول عرض كل رسائل الاستشارات
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="table-responsive">
+                                 <?php if($med->count()): ?>
+                                    <table class="table table-bordered">
+                                    <thead class="flip-content">
+                                        <tr>
+                                            <th>الاسم</th>
+                                            <th>البريد الالكتروني</th>
+                                            <th>الجنس</th>
+                                            <th><a href="/doctor/med-consulting/consulting/all">الرد على جميع الرسائل</a></th>
+                                            <th>حالة الرد</th>
+                                            <th>تاريخ الرسالة</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach($med as $view): ?>
+                                        <tr>
+                                            <td>
+                                                <?php echo e($view->name); ?>
+
+                                            </td>
+                                            <td>
+                                                <?php echo e($view->mail); ?>
+
+                                            </td>
+                                            <td>
+                                                <?php if($view->sex == 1): ?>
+                                                    ذكر
+                                                <?php else: ?>
+                                                    انثى
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <a href="/doctor/med-consulting/consulting/<?php echo e($view->id); ?>">تفاصيل الرسالة</a>
+                                            </td>
+                                            <?php if($reply->count()): ?>
+                                                <td>
+                                                    <?php foreach($reply as $index): ?>
+                                                        <?php if($view->id == $index->med_id): ?>
+                                                            <p style="color:blue";>تم الرد</p>
+                                                            <?php break; ?>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                </td>
+                                            <?php endif; ?>
+                                            <td>
+                                                <?php echo e($view->created_at); ?>
+
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    <?php else: ?>
+                                    <div class="text-center"><h1>عفوا لا يوجد نتائج</h1> </div>
+                                    <?php endif; ?>
+                                    </tbody>
+
+                                </table>
+                                <div> <i class="fa fa-folder-o"></i> إجمالي : <?php echo e($med->count()); ?> رسالة </div>
+                            
+                            </div>
+                            <?php echo Form::close(); ?>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+                        <div class="col-md-12">
+                            <div class="product-pagination text-center">
+                                <nav>
+                                    <ul class="pagination">
+                                        <?php echo $med->render(); ?>
+
+                                    </ul>
+                                </nav>                        
+                            </div>
+                        </div>
+                    </div>
+    </div>
+</div>     
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('custom-css'); ?>
+<style type="text/css">
+    div.portlet-title {
+        background-color: #AB413F;
+        color: white;
+        height: 40px;
+        text-align: right;
+        padding: 10px;
+        font-size: 19px;
+    }
+    table.table.table-bordered, div{
+        direction: rtl;
+    }
+
+</style>
+<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontend.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

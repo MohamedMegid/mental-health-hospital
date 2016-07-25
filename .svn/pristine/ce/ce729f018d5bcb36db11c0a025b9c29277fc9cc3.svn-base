@@ -1,0 +1,53 @@
+<?php $__env->startSection('content-header'); ?>
+<!-- Main content -->
+<ol class="breadcrumb">
+    <li>
+        <a href="#">
+            <i class="livicon" data-name="home" data-size="14" data-loop="true"></i>
+            الرئيسية
+        </a>
+    </li>
+    <li>
+        <a href="/admin/vgallery/list">معرض الفيديوهات</a>
+    </li>
+    <li class="active">حذف الالبوم</li>
+</ol>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary" id="hidepanel1">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <i class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                        تأكيد حذف الالبوم <?php echo e($albums->name); ?>
+
+                    </h3>
+                    <span class="pull-right">
+                        <i class="glyphicon glyphicon-chevron-up clickable"></i>
+                        <i class="glyphicon glyphicon-remove removepanel clickable"></i>
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <p style="color:#FF6347;">تحذير: لاتمام عملية حذف الالبوم, سوف يتم حذف جميع الفيديوهات المتربطة به</p>
+                    <?php echo Form::open(array('method' => 'post')); ?>
+
+                    <div class="form-group" style="float: right;">
+                        <?php echo Form::submit('حذف', 
+                          array('class'=>'btn btn-primary')); ?>
+
+                    </div>
+                    <div class="form-group">
+                        <a href="/admin/vgallery/list" style="margin-right: 10px;font-size: 24px;">الغاء</a>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+<?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+
+
+<?php echo $__env->make('backend.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

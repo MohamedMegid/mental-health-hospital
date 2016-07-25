@@ -1,0 +1,80 @@
+<?php $__env->startSection('content'); ?>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2 form-content">
+        <h3 class="heading" align="center">التسجيل في الموقع</h3>
+        <?php foreach($errors->all() as $error): ?>
+            <p class="alert alert-danger"><?php echo $error; ?></p>
+        <?php endforeach; ?>
+        <?php echo Form::open(['url'=>'/auth/register','class'=>'form form-horizontal','style'=>'margin-top:50px']); ?>
+
+        <div class="form-group">
+            <?php echo Form::label('name','الاسم:',['class'=>'col-sm-2 control-label']); ?>
+
+            <div class="col-sm-8">
+                <?php echo Form::text('name',Input::old('name'),['class'=>'form-control']); ?>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo Form::label('email','البريد الالكتروني:',['class'=>'col-sm-2 control-label']); ?>
+
+            <div class="col-sm-8">
+                <?php echo Form::text('email',Input::old('email'),['class'=>'form-control']); ?>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo Form::label('password','كلمة السر:',['class'=>'col-sm-2 control-label']); ?>
+
+            <div class="col-sm-8">
+                <?php echo Form::password('password',['class'=>'form-control']); ?>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo Form::label('password_confirmation','تأكيد كلمة السر:',['class'=>'col-sm-2 control-label']); ?>
+
+            <div class="col-sm-8">
+                <?php echo Form::password('password_confirmation',['class'=>'form-control']); ?>
+
+            </div>
+        </div>
+        <div class="text-center">
+            <?php echo Form::submit('تسجيل',['class'=>'btn btn-default']); ?>
+
+        </div>
+        <?php echo Form::close(); ?>
+
+        <br>
+    </div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+    p.alert.alert-danger{
+        direction: rtl;
+    }
+    .heading{
+        float: right;
+    }
+    form.form.form-horizontal{
+        clear: both;
+    }
+    .form-content{
+        margin-right: 10px;
+    }
+    .footer-top-area, .footer-bottom-area{
+        display: none;
+    }
+</style>
+<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontend.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

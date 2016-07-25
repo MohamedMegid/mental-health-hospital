@@ -1,0 +1,61 @@
+@extends('frontend.master')
+@section('content')
+
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>{{$specialpages->page_title}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="single-product-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcroumb">
+                        <a href="#">الرئيسية</a> / 
+                        <a href="#">{{$specialpages->page_title}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="product-content-right"></div>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="product">
+                        <h2 class="news_title">{{$specialpages->title}}</h2>
+                    </div>
+            
+                    <div class="product">
+                        <p class="news_subject">{{$specialpages->subject}}</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="edu_head">
+                        <h2>الصفحات ذات الصلة</h2>
+                        @if ($page_id != 1)
+                            <a href="/specialpages/1" class="link_class">كلمة المدير</a><br>
+                        @endif
+                        @if ($page_id != 2)    
+                            <a href="/specialpages/2" class="link_class">الرسالة و الرؤية</a><br>
+                        @endif
+                        @if ($page_id != 3)
+                            <a href="/specialpages/3" class="link_class">الهيكل التنظيمي</a><br>
+                        @endif
+                        @if ($page_id != 4)
+                            <a href="/specialpages/4" class="link_class">حقوق المستخدمين</a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@stop

@@ -1,0 +1,59 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Application Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the routes for an application.
+| It's a breeze. Simply tell Laravel the URIs it should respond to
+| and give it the controller to call when that URI is requested.
+|
+*/
+
+/*
+ * News related routes (back-end)
+ */
+Route::get('admin/news/create/{id}', 'NewsController@create');
+Route::post('admin/news/create/{id}', 'NewsController@store');
+
+Route::get('admin/news/{id}/edit', 'NewsController@edit');
+Route::post('admin/news/{id}/edit', 'NewsController@update');
+
+Route::get('admin/news/{id}/delete', 'NewsController@show');
+Route::post('admin/news/{id}/delete', 'NewsController@destroy');
+
+Route::get('admin/news', 'NewsController@index');
+Route::post('admin/news', 'NewsController@operations');
+
+/*
+ * Comments related routes (back-end)
+ */
+Route::get('admin/comments', 'CommentsController@index');
+Route::post('admin/comments', 'CommentsController@update');
+
+/**
+ * Special pages like vision & mission (back-end)
+ */
+Route::get('admin/specialpages/{id}', 'SpecialPagesController@create');
+Route::post('admin/specialpages/{id}', 'SpecialPagesController@store');
+
+Route::get('admin/specialpages/{id}/edit', 'SpecialPagesController@edit');
+Route::post('admin/specialpages/{id}/edit', 'SpecialPagesController@update');
+/*********************************************************************************/
+
+/*
+ * News related routes (front-end)
+ */
+Route::get('news', 'NewsController@news_list');
+Route::get('news/{id}', 'NewsController@single_news');
+
+/*
+ * Comments related routes (front-end)
+ */
+Route::post('news/{id}', 'CommentsController@store');
+
+/*
+ * SpecialPages related routes (front-end)
+ */
+Route::get('specialpages/{id}', 'SpecialPagesController@show');

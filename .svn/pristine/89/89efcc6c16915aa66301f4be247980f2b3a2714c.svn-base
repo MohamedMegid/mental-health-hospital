@@ -1,0 +1,136 @@
+<?php $__env->startSection('content'); ?>
+<?php if(!empty($first_banner)): ?>
+<div class="site-branding-area">
+      
+    <div class="slider-area">
+        
+        <div id="slide-list" class="carousel carousel-fade slide" data-ride="carousel">
+            
+            <div class="slide-bulletz">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ol class="carousel-indicators slide-indicators">
+                                <li data-target="#slide-list" data-slide-to="0" class="active"></li>
+                                <li data-target="#slide-list" data-slide-to="1"></li>
+                                <li data-target="#slide-list" data-slide-to="2"></li>
+                            </ol>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                    <div class="single-slide">
+                        <div class="slide-bg slide-one">
+                         <a href="<?php echo e($first_banner->link); ?>"><img class="slider-format" src="\img\uploaded\banner\<?php echo e($first_banner->basic_photo); ?>"></a>
+                        </div>
+                        <div class="slide-text-wrapper">
+                            <div class="slide-text">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-6">
+                                            <div class="slide-content">
+                                                <h2><?php echo e($first_banner->title); ?></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="single-slide">
+                        <div class="slide-bg slide-two">
+                            <a href="<?php echo e($second_banner->link); ?>"><img class="slider-format" src="\img\uploaded\banner\<?php echo e($second_banner->basic_photo); ?>"></a>
+                        </div>
+                        <div class="slide-text-wrapper">
+                            <div class="slide-text">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-6">
+                                            <div class="slide-content">
+                                                <h2><?php echo e($second_banner->title); ?></h2>
+                                            </div>
+                                        </div>
+                                    </div>/
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="single-slide">
+                        <div class="slide-bg slide-three">
+                            <a href="<?php echo e($third_banner->link); ?>"><img class="slider-format" src="\img\uploaded\banner\<?php echo e($third_banner->basic_photo); ?>"></a>
+                        </div>
+                        <div class="slide-text-wrapper">
+                            <div class="slide-text">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-6">
+                                            <div class="slide-content">
+                                                <h2><?php echo e($third_banner->title); ?></h2>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>        
+    </div> <!-- End slider area -->
+</div>
+<?php endif; ?>
+<br>
+<div class="row">
+    
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="edu_head">
+            <h2>قائمة المواقع الصديقة</h2>
+        </div>
+        <div>
+            <?php foreach($sites as $view): ?>
+                <a href="<?php echo e($view->link); ?>"><?php echo e($view->title); ?></a><br>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <div class="col-md-7"></div>
+    <div class="col-md-2">
+        <div class="border-format">
+            <?php foreach($social as $item): ?>
+                <a href="<?php echo e($item->link); ?>"><img src="\img\uploaded\social_media\<?php echo e($item->basic_photo); ?>" style="width:30px;height:35px;margin-right: 5px;"></a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+    <?php $__env->stopSection(); ?>
+    <?php $__env->startSection('custom-css'); ?>
+        <style type="text/css">
+            .slider-format{
+                height: 100%;
+                left: 0px;
+                position: absolute;
+                top: 0px;
+                width: 100%;
+                background-position: center center;
+                background-size: cover;
+            }
+            .border-format{
+                border: solid;
+                margin: 5px;
+                padding: 5px;
+            }
+        </style>
+    <?php $__env->stopSection(); ?>
+    <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('frontend.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

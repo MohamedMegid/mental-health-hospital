@@ -1,0 +1,94 @@
+<?php $__env->startSection('content-header'); ?>
+<!-- Main content -->
+<ol class="breadcrumb">
+    <li>
+        <a href="#">
+            <i class="livicon" data-name="home" data-size="14" data-loop="true"></i>
+            الرئيسية
+        </a>
+    </li>
+    <li>
+        <a href="#">تواصل معنا</a>
+    </li>
+    <li class="active">تعديل معلومات التواصل</li>
+</ol>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+<div class="row">
+    <div class="col-md-12">
+         <div class="panel panel-primary" id="hidepanel1">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <i class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                    تعديل معلومات التواصل
+                                </h3>
+                                <span class="pull-right">
+                                    <i class="glyphicon glyphicon-chevron-up clickable"></i>
+                                    <i class="glyphicon glyphicon-remove removepanel clickable"></i>
+                                </span>
+                            </div>
+                            <?php if(empty($contact)): ?>
+                                <h3 class="panel-body">يجب اضافة معلومات التواصل اولا للقيام بعملية التعديل, للاضافة <a href="/admin/contact-us/cont-info">صفحة الاضافة</a></h3>
+                            <?php else: ?>
+                                <div class="panel-body">
+                                    <?php echo Form::model($contact, [$contact->id, 'method' => 'POST']); ?>
+
+                                        <div class="form-group">
+                                          <label>العنوان</label><br>
+                                          <?php echo Form::text('title', null, 
+                                              array('class'=>'form-control', 'style'=>'width:100%')); ?>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                          <label>البريد الالكتروني</label><br>
+                                          <?php echo Form::email('mail', null, 
+                                              array('class'=>'form-control', 'style'=>'width:100%')); ?>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <?php echo Form::label('ارقام الهواتف'); ?>
+
+                                            <div id="main">
+                                                <?php if($phones->count()): ?>
+                                                    <?php foreach($phones as $phone): ?>
+                                                        <input type='text' value="<?php echo e($phone->phone); ?>" name="phone<?php echo e($phone->counter); ?>" class="form-control"/><br>
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
+                                            </div>
+                                            <input type="button" id="abc" value="Add more" />
+                                            <input type='text' name='counter' id="counter" value="<?php echo e($phones->count()); ?>" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <?php echo Form::submit('تعديل ', 
+                                              array('class'=>'btn btn-primary')); ?>
+
+                                        </div>
+                                    <?php echo Form::close(); ?>
+
+                                </div>
+                            <?php endif; ?>
+        </div>
+    </div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('script'); ?>
+<script type="text/javascript">
+    var count = $('#counter').val();
+    var i = ++count;
+    $("#abc").click(function() {
+        var input = "<input type='text' name='phone"+i+"' class='form-control'/><br>";
+        $("#main").append(input);
+        i++;
+    });
+    $("#abc").click(function() {
+        var counter = document.getElementById('main').getElementsByTagName('input').length;
+        $('#counter').val(counter);
+    });
+    $('#counter').hide();
+</script>
+<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('backend.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

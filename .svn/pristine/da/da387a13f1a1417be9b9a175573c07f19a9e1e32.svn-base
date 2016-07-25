@@ -1,0 +1,9 @@
+
+			  <div class="row">
+			  	<?php foreach($banners as $banner): ?>
+			  	<div class="col-md-12">
+			  		<label style="color:#fff;"><?php echo e($banner->title); ?></label>
+			  		<img class="img-responsive" src="/img/uploaded/banner/<?php echo e($banner->basic_photo); ?>">
+			  	</div>
+			  	<?php endforeach; ?>
+			  </div>

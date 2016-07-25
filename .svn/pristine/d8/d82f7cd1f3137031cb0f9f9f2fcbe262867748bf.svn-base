@@ -1,0 +1,132 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+use App\Http\Requests\FriendlySitesRequest;
+use App\Http\Requests\GeneralRequest;
+
+use App\FriendlySites;
+
+use Laracasts\Flash\Flash;
+
+class FriendlySitesController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $sites = FriendlySites::paginate(15);
+        return view('backend.friendly_sites.list_fsites', compact('sites'));
+    }
+
+    /**
+     * Search a listing of the resource.
+     *
+     * @return Response
+     */
+    public function operations(GeneralRequest $request)
+    {
+        if($request->input('delete')) {      
+            if(!empty($_POST['check_list'])) {
+                foreach($_POST['check_list'] as $site_id) {
+                    $site = FriendlySites::find($site_id);
+                    $site->delete();
+                }
+                Flash::success('تم الحذف بنجاح');
+            }
+            else{
+                Flash::warning('لم يتم الاختيار', 'alert-class');
+            }
+            return redirect('admin/friendly-sites/list');
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return view('backend.friendly_sites.create_fsites');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(FriendlySitesRequest $request)
+    {
+        $site = new FriendlySites;
+        $site->title = $request->input('title');
+        $site->link = $request->input('link');
+        $site->save();
+        Flash::success("تم الحفظ بنجاح");
+        return redirect('admin/friendly-sites/create');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $site = FriendlySites::find($id);
+        return view('backend.friendly_sites.edit_fsites', compact('site'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(FriendlySitesRequest $request, $id)
+    {
+        $site = FriendlySites::find($id);
+        $site->title = $request->input('title');
+        $site->link = $request->input('link');
+        $site->update();
+        Flash::success("تم التعديل بنجاح");
+        return redirect('admin/friendly-sites/list/'. $id . '/edit');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $site = FriendlySites::find($id);
+        return view('backend.friendly_sites.delete_fsites', compact('site'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $site = FriendlySites::find($id);
+        $site->delete();
+        Flash::success("تم الحذف بنجاح");
+        return redirect('admin/friendly-sites/list');
+    }
+}

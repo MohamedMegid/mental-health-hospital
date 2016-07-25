@@ -1,0 +1,102 @@
+<?php $__env->startSection('content-header'); ?>
+<!-- Main content -->
+<ol class="breadcrumb">
+    <li>
+        <a href="/admin/dashboard">
+            <i class="livicon" data-name="home" data-size="14" data-loop="true"></i>
+            الرئيسية
+        </a>
+    </li>
+    <li>
+        <a href="/admin/contact-us/contacts">تواصل معنا</a>
+    </li>
+    <li class="active">بيانات الرسالة</li>
+</ol>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+<div class="CSSTableGenerator" >
+                        <?php if(!empty($contact)): ?>
+                <table class="table table-bordered">
+                        <tr class="active">
+                            <td>
+                                الاسم
+                            </td>
+                            <td>
+                                رقم الجوال
+                            </td>
+                            <td>
+                                البريد الالكتروني
+                            </td>
+                            <td>
+                                العنوان
+                            </td>
+                        </tr>
+
+
+                            <tr class="success">
+                                <td>
+                                    <?php echo e($contact->name); ?>
+
+                                </td>
+                                <td>
+                                    <?php echo e($contact->mobile); ?>
+
+                                </td>
+                                <td>
+                                    <?php echo e($contact->mail); ?>
+
+                                </td>
+                                <td>
+                                    <?php echo e($contact->address); ?>
+
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                                            
+                </table>
+
+            </div>
+            <?php if(!empty($contact)): ?>
+            <div class="form-group">
+                نص رسالة العميل
+                <textarea name="client_message" class="form-control hide_component"><?php echo e($contact->message); ?></textarea>
+            </div>
+            <?php endif; ?>
+            <?php if($reply->count()): ?>
+                <?php foreach($reply as $index): ?>
+                    <div class="form-group">
+                        نص رسالة الرد
+                        <textarea name="admin_message" class="form-control hide_component"><?php echo e($index->reply_message); ?></textarea>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+            <?php echo Form::open(array('method' => 'post')); ?>
+
+
+            <div class="form-group">
+                <?php echo Form::label('نص رسالة الرد'); ?>
+
+                <?php echo Form::textarea('reply_message', null, 
+                    array('class'=>'form-control')); ?>
+
+            </div>
+
+            <div class="form-group">
+                <?php echo Form::submit('ارسل', 
+                  array('class'=>'btn btn-primary')); ?>
+
+            </div>
+
+            <?php echo Form::close(); ?>
+
+            <?php endif; ?>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('script'); ?>
+    <script type="text/javascript">
+        $('.form-control.hide_component').prop('disabled', true);
+        $('.form-control.hide_component').css("background-color", "#dff0d8");
+    </script>
+<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('backend.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

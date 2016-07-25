@@ -1,0 +1,74 @@
+<div class="footer-top-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-about-us">
+                        <h2 class="footer-wid-title">نبذة عن الموقع</h2>
+                        <p>تعد الشركة أحدي الشركات الرائدة في مجال المداولات المالية حيث نتخصص في تقديم أفضل خدمة للعملاء و أقوي محطات التداول وأعلي سيولة مالية متاحة. تم تأسيس الشركة في عام 2002 في ولاية نيويورك الامريكية حيث يقع المقر الرئيسي للشركة في مركز التجارة العالمي رقم 7 في قلب الضاحية المالية وول ستريت. كما يوجد للشركة فرع يتبع الاتحاد الأوروبي</p>
+                        <div class="footer-social">
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-menu">
+                        <h2 class="footer-wid-title">المواقع الصديقة</h2>
+                        <br><br>
+                        <ul>
+                            <li><a href="/https://www.google.com.eg">Google</a></li>
+                            <li><a href="/www.youtube.com/">YouTube</a></li>
+                            <li><a href="/Instagram https://instagram.com/">Instagram</a></li>
+                        </ul>                        
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-menu">
+                        <h2 class="footer-wid-title">نبذا عنا</h2>
+                        <ul>
+                            <br><br>
+                            <li><a href="/specialpages/1">كلمة مدير المؤسسة</a></li>
+                            <li><a href="/specialpages/2">الرسالة و الرؤية</a></li>
+                            <li><a href="/specialpages/3">الهيكل التنظيمي</a></li>
+                            <li><a href="/specialpages/4">حقوق المستخدمين</a></li>
+                        </ul>                        
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-about-us">
+                        <h2>مواقع التواصل الاجتماعي</h2>
+                        <p>مع التقدم العلمي وانتشار المخترعات وظهور اشياء جديدة لم تكون في الازمنة السابقة
+
+تنضاف الى انجازات العقل البشري وانتشار العولمة بشكل كبير وصراع الثقافات
+
+في الزمان الماضي كانت الصراعات على اشدها بين حضارات وامم من اجل اتباث وجودها وفعاليتها
+
+كالحضارة الاقوى فانتصر من انتصر ونشاءت حروب من اجل الكرامة الانسانية والاجتماعية </p>
+                        <div class="footer-social">
+                            <a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a>
+                            <a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube"></i></a>
+                            <a href="https://www.linkedin.com/" target="_blank"><i class="fa fa-linkedin"></i></a>
+                            <a href="https://www.pinterest.com/" target="_blank"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End footer top area -->
+    
+    <div class="footer-bottom-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="copyright">
+                        <p>&copy; 2015 جميع الحقوق محفوظة (مستشفى النفسية بالاحساء). <img src="\img\innoflame_logo\innoflame.png"> Powered <i class="fa fa-heart"></i> by <a href="http://www.innoflame.net.sa/" target="_blank">INNOFLAME</a></p>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div> <!-- End footer bottom area -->
+   

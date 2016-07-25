@@ -1,0 +1,58 @@
+@extends('backend.master')
+@section('content-header')
+<!-- Main content -->
+<ol class="breadcrumb">
+    <li>
+        <a href="#">
+            <i class="livicon" data-name="home" data-size="14" data-loop="true"></i>
+            الرئيسية
+        </a>
+    </li>
+    <li>
+        <a href="#">الاعضاء</a>
+    </li>
+    <li class="active">الدخول</li>
+</ol>
+@endsection
+@section('content')
+<div class="row">
+    <div class="col-md-12">
+         <div class="panel panel-primary" id="hidepanel1">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <i class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                    بوابة الدخول
+                                </h3>
+                                <span class="pull-right">
+                                    <i class="glyphicon glyphicon-chevron-up clickable"></i>
+                                    <i class="glyphicon glyphicon-remove removepanel clickable"></i>
+                                </span>
+                            </div>
+
+                                <div class="panel-body">
+                                    {!!Form::open(['url'=>'admin/auth/login','class'=>'form form-horizontal','style'=>'margin-top:50px'])!!}
+                                    <div class="form-group">
+                                        {!! Form::label('البريد الالكتروني','البريد الالكتروني:') !!}
+                                            {!! Form::text('email',Input::old('email'),['class'=>'form-control']) !!}
+                                    </div>
+                                    <div class="form-group">
+                                    {!! Form::label('كلمة السر','كلمة السر:') !!}
+                                            {!! Form::password('password',['class'=>'form-control']) !!}
+                                    </div>
+                                    <div class="text-center">
+                                        {!!Form::submit('دخول',['class'=>'btn btn-default'])!!}
+                                        @if (!($user->count()))
+                                            <a href="/auth/register">تسجيل</a>
+                                        @endif
+                                    </div>
+                                    {!!Form::close()!!}
+                                </div>
+@endsection
+@section('footer')
+    <style type="text/css">
+    .form-group {
+        padding-right: 10px;
+    }
+    </style>
+@endsection
+@stop

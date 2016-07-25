@@ -1,0 +1,277 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\User;
+use Validator;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+
+use App\Http\Requests\auth\RegisterRequest;
+use App\Http\Requests\auth\LoginRequest;
+use App\Http\Requests\EditRegisterDoctorRequest;
+
+use App\User as w_user;
+use Auth;
+use Mail;
+
+use Laracasts\Flash\Flash;
+
+class AuthController extends Controller
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Registration & Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the registration of new users, as well as the
+    | authentication of existing users. By default, this controller uses
+    | a simple trait to add these behaviors. Why don't you explore it?
+    |
+    */
+
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+
+    
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|confirmed|min:6',
+        ]);
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return User
+     */
+    protected function create(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return Response
+     */
+    public function getRegister()
+    {
+        return view('auth.register');
+    }
+ 
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  RegisterRequest  $request
+     * @return Response
+     */
+    public function postRegister(RegisterRequest $request)
+    {
+        $user = new w_user;
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $user->name = $name;
+        $user->email = $email;
+        $user->password = bcrypt($request->input('password'));
+        $confirmation_code = str_random(30);
+        $user->confirmation_code = $confirmation_code;
+        $user->save();
+    
+        
+        $user = User::orderBy('id', 'desc')->first();
+        Mail::send('auth.email_verify', ['confirmation_code' => $user->confirmation_code], function ($m) use ($user) {
+            $m->to($user->email, $user->name)->subject('شكرا على التسجيل!');
+        });
+        Flash::success('شكرا على التسجيل, من فضلك افحص البريد الالكتروني');
+        return redirect('/auth/login'); 
+    }
+
+    /**
+     * Confirm verifying E-mail
+     */
+    public function confirm($confirmation_code)
+    {
+        if( ! $confirmation_code)
+        {
+            throw new InvalidConfirmationCodeException;
+        }
+
+        $user = User::whereConfirmationCode($confirmation_code)->first();
+
+        if ( ! $user)
+        {
+            throw new InvalidConfirmationCodeException;
+        }
+
+        $user->confirmed = 1;
+        $user->confirmation_code = null;
+        $user->save();
+
+        Flash::message('You have successfully verified your account.');
+
+        return Redirect::route('login_path');
+    }
+
+    /**
+     * Show the application login form.
+     *
+     * @return Response
+     */
+    public function getadmin()
+    {
+        $user = w_user::where('id', '=', 1)->first();
+        return view('auth.admin_login',compact('user'));
+    }
+
+    /**
+     * Handle a login request to the application.
+     *
+     * @param  LoginRequest  $request
+     * @return Response
+     */
+    public function postadmin(LoginRequest $request)
+    {
+        $email = $request->input('email');
+        $password = $request->input('password');
+        if (Auth::attempt(['email' => $email, 'password' => $password]))
+        {
+            return redirect('/admin/dashboard'); //TODO return redirect('/admin/home');
+        }
+        else{
+            return redirect('admin/auth/login')->withErrors([
+                'email' => 'خطأ في البريد الالكتروني او كلمة السر, حاول مرة اخرى',
+            ]);
+        }
+    }
+
+    /**
+     * Show the application login form.
+     *
+     * @return Response
+     */
+    public function getLogin()
+    {
+        return view('auth.login');
+    }
+ 
+    /**
+     * Handle a login request to the application.
+     *
+     * @param  LoginRequest  $request
+     * @return Response
+     */
+    public function postLogin(LoginRequest $request)
+    {
+        $email = $request->input('email');
+        $password = $request->input('password');
+        if (Auth::attempt(['email' => $email, 'password' => $password]))
+        {
+            return redirect('/home'); //TODO return redirect('/home');
+        }
+        /*
+        if (Auth::attempt(['email' => $email, 'password' => $password, 'confirmed' => 1]))
+        {
+            return redirect('/home'); //TODO return redirect('/home');
+        }
+        */
+        else{
+            return redirect('/auth/login')->withErrors([
+                'email' => 'خطأ في البريد الالكتروني او كلمة السر, حاول مرة اخرى',
+            ]);
+        }
+    }
+ 
+    /**
+     * Log the user out of the application.
+     *
+     * @return Response
+     */
+    public function getLogout()
+    {
+        Auth::logout();
+        
+        return redirect('/home')->withErrors([
+                'User' => 'تم خروج العضو',
+        ]);
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @return Response
+     */
+    public function AdmingetLogout()
+    {
+        Auth::logout();
+        
+        return redirect('/admin/auth/login')->withErrors([
+                'User' => 'تم خروج مدير النظام',
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function getprofile()
+    {
+        $user_id = Auth::user()->id;
+        $user = User::where('id', '=', $user_id)->first();
+        return view('frontend.users.edit_form', compact('user'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function postprofile(EditRegisterDoctorRequest $request)
+    {
+        $user_id = Auth::user()->id;
+        $user = User::find($user_id);
+        $emails = User::where('id', '!=', $user_id)->get();
+        $user->name = $request->input('name');
+        foreach ($emails as $key => $value) {
+            if ($value->email ==  $request->input('email')){
+                Flash::error('تم تفعيل هذا البريد من قبل');
+                return redirect('auth/profile');
+            }
+            else{
+                $user->email = $request->input('email');
+            }
+        }
+        if (!empty($request->input('password'))){
+            if ($request->input('password') == $request->input('password_confirmation')){
+                $user->password = bcrypt($request->input('password'));
+            }
+            else{
+                Flash::error('كلمة السر غير متابقة للتأكيد');
+                return redirect('auth/profile');
+            }
+        }
+        $user->update();
+        Flash::success('تم التعديل بنجاح');
+
+        return redirect('auth/profile');
+    }
+}

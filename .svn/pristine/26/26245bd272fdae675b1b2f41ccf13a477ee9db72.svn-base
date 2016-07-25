@@ -1,0 +1,53 @@
+
+@extends('frontend.master')
+@section('content')
+<div class="row">
+                <div class="col-md-12">
+                    <section id="demo">
+                        <div class="center">
+                            <div class="smoothslides" id="myslideshow1">
+                                @foreach ($banners as $banner)
+                                    <a href="{{$banner->link}}"><img src="\img\uploaded\banner\{{$banner->basic_photo}}" alt="{{$banner->title}}"/></a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+    @endsection
+    @section('scripts')
+        <script type="text/javascript" src="{{ asset('assets/frontend/js/jquery.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/frontend/js/smoothslides-2.1.0.min.js') }}"></script>
+        <script type="text/javascript">
+            $(document).ready( function() {
+
+                $('#myslideshow1').smoothSlides({
+                effectDuration: 3500
+                /* options seperated by commas */
+                });
+
+                $('xmp').click(function(){
+                    var saveContent = $(this).html();
+                    $("body").append("<input type='text' id='temp' style=''>");
+                    $("#temp").val(saveContent).select();
+                    document.execCommand("copy");
+                    $("#temp").remove();
+                    $("body").append('<div class="message">Copied To Clipboard</div>');
+                    $(".message").slideDown();
+                    setTimeout(function(){
+                        $(".message").slideUp(function(){
+                            $(this).remove();
+                        });
+                    }, 1000)
+                });
+
+            });
+        </script>
+    @endsection
+    @section('custom-css')
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/smoothslides.theme.css') }}">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,900|Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/stylesheet.css') }}">
+        
+    @endsection
+    @stop

@@ -1,0 +1,121 @@
+<?php $__env->startSection('content'); ?>
+    
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>الاستشارات الطبية</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="single-product-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcroumb">
+                        <a href="#">الرئيسية</a> / 
+                        <a href="/med-consulting">الاستشارات الطبية</a>
+                    </div>
+                </div>
+            </div>
+                    <div class="row">
+                         <div class="col-md-8">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                            <h3 class="panel-title"><i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true"></i>الاستشارات الطبية </h3>
+                                </div>
+                                <?php if(count($errors) > 0): ?>
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                <?php foreach($errors->all() as $error): ?>
+                                                    <li><?php echo e($error); ?></li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        </div>
+                                <?php endif; ?>
+
+                                    <?php echo Form::open(array('method' => 'post')); ?>
+
+
+                                    <div class="form-group">
+                                        <?php echo Form::label('الاسم'); ?><br>
+                                        <?php echo Form::text('name', null, 
+                                            array('class'=>'form-control')); ?>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <?php echo Form::label('البريد الالكتروني'); ?><br>
+                                        <?php echo Form::email('mail', null, 
+                                            array('class'=>'form-control')); ?>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                    	الجنس<br>
+                                        <select class="form-control" name="sex">
+											<option value="1">ذكر</option>
+											<option value="2">انثى</option>
+										</select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <?php echo Form::label('نص الاستشارة'); ?><br>
+                                        <?php echo Form::textarea('message', null, 
+                                            array('class'=>'form-control')); ?>
+
+                                    </div>                                    
+
+                                    <div class="form-group">
+                                        <input type="submit" value="ارسل" name="send"/>
+                                    </div>
+
+                                    <?php echo Form::close(); ?>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true"></i>النص التعريفي</h3>
+                                </div>
+                                <div class="info_format">
+                                    <?php if($med->count()): ?>
+                                        العنوان: <div><?php echo e($med->title); ?></div>
+                                        الموضوع: <div><?php echo e($med->subject); ?></div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>      
+    </div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
+    <!-- global js -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+    <script src="<?php echo e(asset('assets/backend/js/locationpicker.jquery.js')); ?>"></script>
+    <script type="text/javascript">
+        $('.transfer').hide();
+        $('.hidden-form').hide();
+        $("#us2-address").prop('disabled', true);
+        $('#us2').locationpicker({
+            location: {latitude: $('#latitude').val(), longitude: $('#longitude').val()},   
+            radius: 3000,
+            inputBinding: {
+                latitudeInput: $('#us2-lat'),
+                longitudeInput: $('#us2-lon'),
+                radiusInput: $('#us2-radius'),
+                locationNameInput: $('#us2-address')
+            }
+        });
+    </script>
+<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontend.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

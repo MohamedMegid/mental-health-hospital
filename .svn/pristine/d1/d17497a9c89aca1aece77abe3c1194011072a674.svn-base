@@ -1,0 +1,170 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+use App\Http\Requests\SocialMediaRequest;
+use App\Http\Requests\GeneralRequest;
+use App\Http\Requests\EditSocialMediaRequest;
+use App\BasicInfo;
+use App\SocialMedia;
+use Intervention\Image\Facades\Image;
+use Laracasts\Flash\Flash;
+
+class SocialMediaController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $social = SocialMedia::paginate(15);
+        $corp_name = BasicInfo::first();
+        return view('backend.social.viewsocial', compact('social', 'corp_name'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        $corp_name = BasicInfo::first();
+        return view('backend.social.social_form', compact('corp_name'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(SocialMediaRequest $request)
+    {
+
+        $social = new SocialMedia;
+        $social->title = $request->input('title');
+        $social->link = $request->input('link');
+        $file = $request->file('basic_photo');
+        if (!empty($file)){
+            $social->basic_photo = $file->getClientOriginalName();
+            $file = $file->move('img/uploaded/social_media/', $file->getClientOriginalName());
+        }
+        $social->save();
+        Flash::success("تم الحفظ بنجاح");
+        return redirect('admin/social-media/create');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $social = SocialMedia::find($id);
+        $corp_name = BasicInfo::first();
+        return view('backend.social.confirmdelete', compact('social', 'corp_name'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $social = SocialMedia::find($id);
+        $corp_name = BasicInfo::first();
+        return view('backend.social.edit_social', compact('social', 'corp_name'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(EditSocialMediaRequest $request, $id)
+    {
+        $social = SocialMedia::find($id);
+        $social->title = $request->input('title');
+        $social->link = $request->input('link');
+        $file = $request->file('basic_photo');
+        if (!empty($file)){
+            $social->basic_photo = $file->getClientOriginalName();
+            $file = $file->move('img/uploaded/social_media/', $file->getClientOriginalName());
+        }
+        $social->update();
+        Flash::success('تم التعديل بنجاح');
+        return redirect('admin/social-media/'. $id . '/edit');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $social = SocialMedia::find($id);
+        $social->delete();
+        Flash::success('تم الحذف بنجاح');
+        return redirect('admin/social_media');
+    }
+
+    /**
+     * Search a listing of the resource.
+     *
+     * @return Response
+     */
+    public function operations(GeneralRequest $request)
+    {
+        $social = '';
+        if($request->input('delete')) {      
+            if(!empty($_POST['check_list'])) {
+                foreach($_POST['check_list'] as $social_id) {
+                    $social .= $social_id . '-';
+                }
+                return redirect('admin/social-media/list/all/' . $social . '/delete');
+            }
+            else{
+                Flash::warning('لم يتم الاختيار', 'alert-class');
+            }
+            return redirect('admin/social-media');
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy_all()
+    {
+        $url = $_SERVER['REQUEST_URI'];
+        $tokens = explode('/', $url);
+        $views = $tokens[5];
+        $explode = explode('-', $views);
+        foreach ($explode as $key => $value) {
+            if (!empty($value)){
+                $social = SocialMedia::find($value);
+                $social->delete();
+                Flash::success("تم الحذف بنجاح");
+            }
+        }
+        return redirect('admin/social-media');
+    }
+}

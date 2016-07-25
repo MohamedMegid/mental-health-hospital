@@ -1,0 +1,509 @@
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="left-side sidebar-offcanvas">
+            <section class="sidebar ">
+                <div class="page-sidebar  sidebar-nav">
+                    <div class="nav_icons">
+                        <ul class="sidebar_threeicons">
+                            <li>
+                                <a href="#">
+                                    <i class="livicon" data-name="hammer" title="Form Builder 1" data-loop="true" data-color="#42aaca" data-hc="#42aaca" data-s="25"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="livicon" data-name="list-ul" title="Form Builder 2" data-loop="true" data-color="#e9573f" data-hc="#e9573f" data-s="25"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="livicon" data-name="vector-square" title="Button Builder" data-loop="true" data-color="#f6bb42" data-hc="#f6bb42" data-s="25"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="livicon" data-name="new-window" title="Page Builder" data-loop="true" data-color="#37bc9b" data-hc="#37bc9b" data-s="25"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- BEGIN SIDEBAR MENU -->
+                    <ul id="menu" class="page-sidebar-menu">
+                        <li class="active">
+                            <a href="index.html">
+                                <i class="livicon" data-name="home" data-size="18" data-c="#418BCA" data-hc="#418BCA" data-loop="true"></i>
+                                <span class="title">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="<?php echo e(Request::is('admin/news') ? 'active' : ''); ?> <?php echo e(Request::is('admin/news/*') ? 'active' : ''); ?> <?php echo e(Request::is('admin/news/*/*') ? 'active' : ''); ?>">
+                            <a href="#">
+                                <i class="livicon" data-name="medal" data-size="18" data-c="#00bc8c" data-hc="#00bc8c" data-loop="true"></i>
+                                <span class="title">الاخبار</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="/admin/news/create/1">
+                                        اضافة خبر جديد
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/news">
+                                        قائمة جميع الاخبار
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/news?title=&importance=&category=1">
+                                        قائمة الاخبار العامة
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="<?php echo e(Request::is('admin/comments') ? 'active' : ''); ?> <?php echo e(Request::is('admin/comments/*') ? 'active' : ''); ?>">
+                            <a href="#">
+                                <i class="livicon" data-name="doc-portrait" data-c="#5bc0de" data-hc="#5bc0de" data-size="18" data-loop="true"></i>
+                                <span class="title">التعليقات</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="/admin/comments">
+                                        قائمة التعليقات الخاصة بالاخبار
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="<?php echo e(Request::is('admin/news/create/2') ? 'active' : ''); ?>">
+                            <a href="#">
+                                <i class="livicon" data-name="brush" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
+                                <span class="title">التثقيفية</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="/admin/news/create/2">
+                                        اضافة اخبار تثقيفية
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/news?title=&importance=&category=2">
+                                        قائمة الاخبار التثقيفية
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="<?php echo e(Request::is('admin/news/create/3') ? 'active' : ''); ?>">
+                            <a href="#">
+                                <i class="livicon" data-name="lab" data-c="#EF6F6C" data-hc="#EF6F6C" data-size="18" data-loop="true"></i>
+                                <span class="title">الانجازات</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="/admin/news/create/3">
+                                        اضافة الانجازات
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/news?title=&importance=&category=3">
+                                        قائمة الانجازات
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="<?php echo e(Request::is('admin/specialpages/1') ? 'active' : ''); ?> <?php echo e(Request::is('admin/specialpages/1/edit') ? 'active' : ''); ?>">
+                            <a href="#">
+                                <i class="livicon" data-name="table" data-c="#418BCA" data-hc="#418BCA" data-size="18" data-loop="true"></i>
+                                <span class="title">كلمة المدير</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="/admin/specialpages/1">
+                                        اضافة كلمة المدير
+                                    <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/specialpages/1/edit">
+                                        تعديل كلمة المدير
+                                    <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="<?php echo e(Request::is('admin/specialpages/2') ? 'active' : ''); ?> <?php echo e(Request::is('admin/specialpages/2/edit') ? 'active' : ''); ?>">
+                            <a href="#">
+                                <i class="livicon" data-name="table" data-c="#418BCA" data-hc="#418BCA" data-size="18" data-loop="true"></i>
+                                <span class="title">الرسالة و الرؤية</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="/admin/specialpages/2">
+                                        اضافة الرسالة و الرؤية
+                                    <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/specialpages/2/edit">
+                                        تعديل الرسالة و الرؤية
+                                    <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="<?php echo e(Request::is('admin/specialpages/3') ? 'active' : ''); ?> <?php echo e(Request::is('admin/specialpages/3/edit') ? 'active' : ''); ?>">
+                            <a href="#">
+                                <i class="livicon" data-name="table" data-c="#418BCA" data-hc="#418BCA" data-size="18" data-loop="true"></i>
+                                <span class="title">الهيكل التنظيمي</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="/admin/specialpages/3">
+                                        اضافة الهيكل التنظيمي
+                                    <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/specialpages/3/edit">
+                                        تعديل الهيكل التنظيمي
+                                    <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="<?php echo e(Request::is('admin/specialpages/4') ? 'active' : ''); ?> <?php echo e(Request::is('admin/specialpages/4/edit') ? 'active' : ''); ?>">
+                            <a href="#">
+                                <i class="livicon" data-name="table" data-c="#418BCA" data-hc="#418BCA" data-size="18" data-loop="true"></i>
+                                <span class="title">حقوق المستخدمين</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="/admin/specialpages/4">
+                                        اضافة حقوق المستخدمين
+                                    <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/specialpages/4/edit">
+                                        تعديل حقوق المستخدمين
+                                    <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li  class="<?php echo e(Request::is('admin/contact-us') ? 'active' : ''); ?> <?php echo e(Request::is('admin/contact-us/*') ? 'active' : ''); ?> <?php echo e(Request::is('admin/contact-us/*/*') ? 'active' : ''); ?>">
+                            <a href="#">
+                                <i class="livicon" data-name="barchart" data-size="18" data-c="#00bc8c" data-hc="#00bc8c" data-loop="true"></i>
+                                <span class="title">اتصل بنا</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="/admin/contact-us/gmap">
+                                        اضافة الموقع على الخريطة
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/contact-us/gmap/edit">
+                                        تعديل الموقع على الخريطة
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/contact-us/cont-info">
+                                        اضافة معلومات التواصل
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/contact-us/cont-info/edit">
+                                        تعديل معلومات التواصل
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/contact-us/contacts">
+                                        عرض جميع الرسائل و الرد عليها
+                                        <i class="fa fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="calendar.html">
+                                <i class="livicon" data-c="#F89A14" data-hc="#F89A14" data-name="calendar" data-size="18" data-loop="true"></i>
+                                <span class="badge badge-danger">7</span>
+                                Calendar
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="livicon" data-name="mail" data-size="18" data-c="#5bc0de" data-hc="#5bc0de" data-loop="true"></i>
+                                <span class="title">Email</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="mail_box.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Inbox
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="compose.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Compose
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="view_mail.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Single Mail
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="tasks.html">
+                                <i class="livicon" data-c="#EF6F6C" data-hc="#EF6F6C" data-name="list-ul" data-size="18" data-loop="true"></i>
+                                <span class="badge badge-danger">10</span>
+                                Tasks
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="livicon" data-name="image" data-c="#418BCA" data-hc="#418BCA" data-size="18" data-loop="true"></i>
+                                <span class="title">Gallery</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="gallery.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Gallery
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="masonry_gallery.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Masonry Gallery
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="dropzone.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Dropzone
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="imagecropping.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Image Cropping
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="multiple_upload.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Multiple File Upload
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="imgmagnifier.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Image Magnifier
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="livicon" data-name="users" data-size="18" data-c="#00bc8c" data-hc="#00bc8c" data-loop="true"></i>
+                                <span class="title">Users</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="users.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Users
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="adduser.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Add New User
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="view_user.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        View User
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="deleted_users.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Deleted Users
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="livicon" data-name="map" data-c="#5bc0de" data-hc="#5bc0de" data-size="18" data-loop="true"></i>
+                                <span class="title">Maps</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="googlemaps.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Google Maps
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="vectormaps.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Vector Maps
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="advancedmaps.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Advanced Maps
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="livicon" data-name="comment" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
+                                <span class="title">Blog</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="blog_list.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Blog List
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="blog_details.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Blog Details
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="add_newblog.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Add New Blog
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="livicon" data-name="move" data-c="#EF6F6C" data-hc="#EF6F6C" data-size="18" data-loop="true"></i>
+                                <span class="title">News</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="news.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        News
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="news_item.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        News Details
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="livicon" data-name="flag" data-c="#418bca" data-hc="#418bca" data-size="18" data-loop="true"></i>
+                                <span class="title">Pages</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="lockscreen.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Lockscreen
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="invoice.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Invoice
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="login.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Login
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="login2.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Login 2
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="login.html#toregister">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Register
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="register2.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Register 2
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="404.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        404 Error
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="500.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        500 Error
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="blank.html">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Blank Page
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- END SIDEBAR MENU -->
+                </div>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        
+        <!-- right-side -->

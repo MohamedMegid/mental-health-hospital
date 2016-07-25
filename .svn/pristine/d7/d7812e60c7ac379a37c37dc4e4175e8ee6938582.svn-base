@@ -1,0 +1,53 @@
+<?php $__env->startSection('content'); ?>
+    
+    
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 head-ban">
+                    <div class="product-bit-title text-center">
+                        <h2 class="pag-head">معرض الصور</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="single-product-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcroumb">
+                        <a href="#">الرئيسية</a> / 
+                        <a href="/pgallery">معرض الصور</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="color: #fff; background: #AB413F;">
+                <div style="padding: 40px 0; width: 960px; margin: 0 auto; height: auto;">
+                    <div id="gallery">
+                            <?php foreach($albums as $album): ?>
+                              <div class="album" data-jgallery-album-title=<?php echo e($album->name); ?>>
+                                 <h1><?php echo e($album->name); ?></h1>
+                                 <?php foreach($images as $image): ?>
+                                   <?php if($image->pgallery_id == $album->id): ?>
+                                   <a href="/img/uploaded/pgallery/<?php echo e($image->images); ?>"><img src="/img/uploaded/pgallery/<?php echo e($image->images); ?>"  data-jgallery-bg-color="#3e3e3e" data-jgallery-text-color="#fff" /></a>
+                                   <?php endif; ?>
+                                 <?php endforeach; ?>
+                              </div>
+                           <?php endforeach; ?>
+                       </div>
+                </div>
+            </div>
+      </div>
+    </div>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('custom-css'); ?>
+  <style type="text/css">
+  div.jgallery-thumbnails.jgallery-thumbnails-bottom.jgallery-thumbnails-horizontal.images.loaded{
+    background-color: black !important;
+  }
+  </style>
+<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('frontend.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

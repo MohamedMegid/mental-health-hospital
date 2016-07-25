@@ -1,0 +1,55 @@
+<div class="footer-top-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-about-us">
+                        <h2 class="footer-wid-title">نبذة عن الموقع</h2>
+                        <p>يحتوي الموقع على اخبار المؤسسة و المواضيع التثقيفية و عرض للانجازات المنفذة</p>
+                        <div class="footer-social">
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-menu">
+                        <h2 class="footer-wid-title">المواقع الصديقة</h2>
+                        <br><br>
+                        <ul>
+                            <li><a href="/https://www.google.com.eg">Google</a></li>
+                            <li><a href="/www.youtube.com/">YouTube</a></li>
+                            <li><a href="/Instagram https://instagram.com/">Instagram</a></li>
+                        </ul>                        
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-menu">
+                        <h2 class="footer-wid-title">نبذا عنا</h2>
+                        <ul>
+                            <br><br>
+                            <li><a href="/specialpages/1">كلمة مدير المؤسسة</a></li>
+                            <li><a href="/specialpages/2">الرسالة و الرؤية</a></li>
+                            <li><a href="/specialpages/3">الهيكل التنظيمي</a></li>
+                            <li><a href="/specialpages/4">حقوق المستخدمين</a></li>
+                        </ul>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End footer top area -->
+    
+    <div class="footer-bottom-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="copyright">
+                        <p>&copy; 2015 InnoFlame. All Rights Reserved. Coded with <i class="fa fa-heart"></i> by <a href="#" target="_blank">INNOFLAME</a></p>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div> <!-- End footer bottom area -->
+   

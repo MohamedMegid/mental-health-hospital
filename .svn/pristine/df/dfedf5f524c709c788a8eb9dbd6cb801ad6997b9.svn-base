@@ -1,0 +1,116 @@
+<?php $__env->startSection('content'); ?>
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>الاستشارات</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="single-product-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcroumb">
+                        <a href="#">الرئيسية</a> / 
+                        <a href="/doctor/med-consulting/consulting">قائمة الاستشارات</a> /
+                        <a href="#">بيانات الرسالة</a>
+                    </div>
+                </div>
+            </div>
+            <div class="CSSTableGenerator" >
+                        <?php if(!empty($med)): ?>
+                <table class="table table-bordered">
+                        <tr class="active">
+                            <td>
+                                الاسم
+                            </td>
+                            <td>
+                                البريد الالكتروني
+                            </td>
+                            <td>
+                                الجنس
+                            </td>
+                        </tr>
+
+
+                            <tr class="success">
+                                <td>
+                                    <?php echo e($med->name); ?>
+
+                                </td>
+                                <td>
+                                    <?php echo e($med->mail); ?>
+
+                                </td>
+                                <td>
+                                    <?php if($med->sex == 1): ?>
+                                    	ذكر
+                                    <?php else: ?>
+                                    	انثى
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                                            
+                </table>
+
+            </div>
+            <?php if(!empty($med)): ?>
+            <div class="form-group">
+                نص رسالة العميل
+                <textarea name="client_message" class="form-control hide_component" disabled><?php echo e($med->message); ?></textarea>
+            </div>
+            <?php endif; ?>
+            <?php if($reply->count()): ?>
+                <?php foreach($reply as $index): ?>
+                    <div class="form-group">
+                        نص رسالة الرد
+                        <textarea name="admin_message" class="form-control hide_component" disabled><?php echo e($index->reply_message); ?></textarea>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+            <?php echo Form::open(array('method' => 'post')); ?>
+
+
+            <div class="form-group">
+                <?php echo Form::label('نص رسالة الرد'); ?>
+
+                <?php echo Form::textarea('reply_message', null, 
+                    array('class'=>'form-control')); ?>
+
+            </div>
+
+            <div class="form-group">
+                <?php echo Form::submit('ارسل', 
+                  array('class'=>'btn btn-primary')); ?>
+
+            </div>
+
+            <?php echo Form::close(); ?>
+
+            <?php endif; ?>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('custom-css'); ?>
+<style type="text/css">
+    div.portlet-title {
+        background-color: #AB413F;
+        color: white;
+        height: 40px;
+        text-align: right;
+        padding: 10px;
+        font-size: 19px;
+    }
+    table.table.table-bordered, th{
+        direction: rtl;
+    }
+
+</style>
+<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontend.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

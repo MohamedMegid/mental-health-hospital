@@ -1,0 +1,184 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+use App\Http\Requests\PageRequest;
+
+use App\Page;
+
+use Laracasts\Flash\Flash;
+
+
+class PagesController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $pages = Page::paginate(15);
+        return view('backend.page.pages_content', compact('pages'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return view('backend.page.page_form');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(PageRequest $request)
+    {
+        $page = new Page;
+        $page->title = $request->input('title');
+        $page->body = $request->input('body');
+        $custom_url = $request->input('title');
+        $path = str_replace(' ', '-', $custom_url);
+        $path = strtolower($path);
+        $page_path_db = page::all(['path']);
+        foreach ($page_path_db as $key => $value) {
+            $slug = $value->path;        
+            if ($path == $slug){
+                $last_char = substr($slug, -1);
+                if (is_numeric($last_char)){
+                    $created_char = $last_char + 1;
+                    $path = substr($path, 0, -1);
+                    $path = $path . '' . $created_char;
+                }
+                else{
+                    $created_char = 1;
+                    $path = $path . '' . $created_char;
+                }                
+            }
+        }
+        $page->path = $path;
+        $page->save();
+        Flash::success('تم الحفظ بنجاح');
+        return redirect('admin/pages/create');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show()
+    {
+        $pages_id = '';
+        if(!empty($_POST['check_list'])) {
+            foreach($_POST['check_list'] as $page_id) {
+                $pages_id = $page_id . '-' . $pages_id;
+            }
+        }
+        else{
+            Flash::warning('لم يتم الاختيار', 'alert-class');
+            return redirect('admin/pages');
+        }
+        return redirect('admin/pages/' . $pages_id . '/delete');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $page = Page::find($id);
+        return view('backend.page.edit_pages', compact('page'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(PageRequest $request, $id)
+    {
+        $page = Page::find($id);
+        $page->title = $request->input('title');
+        $page->body = $request->input('body');
+        $page->update();
+        Flash::success('تم التعديل بنجاح');
+        return redirect('admin/pages/' . $id . '/edit');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $url = $_SERVER['REQUEST_URI'];
+        $tokens = explode('/', $url);
+        $pages_id = $tokens[3];
+        $explode = explode('-', $pages_id);
+        foreach($explode as $key => $page_id) {
+            if(!empty($page_id)){
+                Page::where('id', '=', $page_id)->delete();
+            }
+        }
+        Flash::success('تم الحذف بنجاح');
+        return redirect('admin/pages');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function confirm_delete()
+    {
+        $url = $_SERVER['REQUEST_URI'];
+        $tokens = explode('/', $url);
+        $pages_id = $tokens[3];
+        $page = Page::where('id', '=', $pages_id)->first();
+        $page_name = $page['attributes']['title'];
+        if (!is_numeric($pages_id)){
+            $title =  " تأكيد الحذف";
+        }
+        else{
+            $title = "تأكيد حذف الصفحة: " . $page_name;
+        }
+        return view('backend.page.confirm_delete', compact('pages_id', 'page', 'title'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function view_page()
+    {
+        $url = $_SERVER['REQUEST_URI'];
+        $tokens = explode('/', $url);
+        $page_path = $tokens[2];
+        $page = Page::where('path', '=', $page_path)->first();
+        $pages = Page::all();
+        return view('frontend.page.view', compact('page', 'pages'));
+    }
+}

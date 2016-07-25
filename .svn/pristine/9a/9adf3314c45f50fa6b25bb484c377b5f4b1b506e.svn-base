@@ -1,0 +1,15 @@
+<div class="edu_head">
+	<h2>التثقيفية</h2>
+</div>
+<div>
+<?php foreach($educational_news as $view): ?>
+	<a href="/news/<?php echo e($view->id); ?>"><img src="/img/uploaded/<?php echo e($view->basic_photo); ?>" alt="" class="img_detail">
+	<div class="para_format"><?php echo e($view->summary); ?></div></a>
+<?php endforeach; ?>
+</div>
+
+<h2 class="ach_head">الانجازات</h2>
+<?php foreach($achievements as $view): ?>
+	<a href="/news/<?php echo e($view->id); ?>"><img src="/img/uploaded/<?php echo e($view->basic_photo); ?>" alt="" class="img_detail">
+	<div class="para_format"><?php echo e($view->summary); ?></div></a>
+<?php endforeach; ?>

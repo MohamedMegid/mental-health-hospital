@@ -1,0 +1,302 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Application Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the routes for an application.
+| It's a breeze. Simply tell Laravel the URIs it should respond to
+| and give it the controller to call when that URI is requested.
+|
+*/
+
+
+/*
+ * Registration & login & logout
+ * routes for users & admin
+ */
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+// Registration routes...
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+Route::get('admin', 
+  ['as' => 'admin/auth/login', 'uses' => 'Auth\AuthController@getadmin']);
+
+Route::get('admin/auth/login', 'Auth\AuthController@getadmin');
+Route::post('admin/auth/login', 'Auth\AuthController@postadmin');
+
+Route::get('home', 'HomeController@index');
+
+Route::group(['middleware' => 'App\Http\Middleware\DoctorMiddleware'], function()
+{
+	Route::get('doctor/med-consulting/consulting', 'MedicalConsultingDoctorController@index');
+	Route::post('doctor/med-consulting/consulting', 'MedicalConsultingDoctorController@destroy');
+
+	Route::get('doctor/med-consulting/consulting/{id}', 'MedicalConsultingDoctorController@single_consulting');
+	Route::post('doctor/med-consulting/consulting/{id}', 'MedicalConsultingDoctorController@reply_message');
+});
+
+Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
+{
+	/*
+	 * Specific to Admin Dashboard
+	 */
+	Route::get('admin/dashboard', 'HomeController@create');
+
+	/*
+	 * Specific to Admin Logout
+	 */
+	Route::get('admin/logout', 'Auth\AuthController@AdmingetLogout');
+
+	/**
+	 * Specific to Users in the site (Edit - Delete - view)
+	 */
+	Route::get('admin/register/user', 'RegisterDoctorController@create');
+	Route::post('admin/register/user', 'RegisterDoctorController@store');
+
+	Route::get('admin/register/users', 'RegisterDoctorController@index');
+
+	Route::get('admin/register/users/{id}/edit', 'RegisterDoctorController@edit');
+	Route::post('admin/register/users/{id}/edit', 'RegisterDoctorController@update');
+
+	Route::get('admin/register/users/{id}/delete', 'RegisterDoctorController@show');
+	Route::post('admin/register/users/{id}/delete', 'RegisterDoctorController@destroy');
+
+	/*
+	 * News related routes (back-end)
+	 */
+	Route::get('admin/news/create/{id}', 'NewsController@create');
+	Route::post('admin/news/create/{id}', 'NewsController@store');
+
+	Route::get('admin/news/{id}/edit', 'NewsController@edit');
+	Route::post('admin/news/{id}/edit', 'NewsController@update');
+
+	Route::get('admin/news/{id}/delete', 'NewsController@show');
+	Route::post('admin/news/{id}/delete', 'NewsController@destroy');
+
+	Route::get('admin/news', 'NewsController@index');
+	Route::post('admin/news', 'NewsController@operations');
+
+	/*
+	 * Comments related routes (back-end)
+	 */
+	Route::get('admin/comments', 'CommentsController@index');
+	Route::post('admin/comments', 'CommentsController@update');
+
+	/**
+	 * Special pages like vision & mission (back-end)
+	 */
+	Route::get('admin/specialpages/{id}', 'SpecialPagesController@create');
+	Route::post('admin/specialpages/{id}', 'SpecialPagesController@store');
+
+	Route::get('admin/specialpages/{id}/edit', 'SpecialPagesController@edit');
+	Route::post('admin/specialpages/{id}/edit', 'SpecialPagesController@update');
+
+	/**
+	 * Contact Us related routes (back-end)
+	 */
+	Route::get('admin/contact-us/gmap', 'ContactUsController@show');
+	Route::post('admin/contact-us/gmap', 'ContactUsController@store');
+
+	Route::get('admin/contact-us/gmap/edit', 'ContactUsController@edit');
+	Route::post('admin/contact-us/gmap/edit', 'ContactUsController@update');
+
+	Route::get('admin/contact-us/cont-info', 'ContactUsController@create');
+	Route::post('admin/contact-us/cont-info', 'ContactUsController@save');
+
+	Route::get('admin/contact-us/cont-info/edit', 'ContactUsController@edit_contact_info');
+	Route::post('admin/contact-us/cont-info/edit', 'ContactUsController@update_contact_info');
+
+	Route::get('admin/contact-us/contacts', 'ContactUsController@index');
+	Route::post('admin/contact-us/contacts', 'ContactUsController@destroy');
+
+	Route::get('admin/contact-us/contacts/{id}', 'ContactUsController@single_contact');
+	Route::post('admin/contact-us/contacts/{id}', 'ContactUsController@reply_message');
+
+
+	/**
+	 * Medical Consulting related routes (back-end)
+	 */
+	Route::get('admin/med-consulting/info', 'MedicalConsultingController@show');
+	Route::post('admin/med-consulting/info', 'MedicalConsultingController@save_info');
+
+	Route::get('admin/med-consulting/info/edit', 'MedicalConsultingController@edit');
+	Route::post('admin/med-consulting/info/edit', 'MedicalConsultingController@update');
+
+	Route::get('admin/med-consulting/consulting', 'MedicalConsultingController@index');
+	Route::post('admin/med-consulting/consulting', 'MedicalConsultingController@destroy');
+
+	Route::get('admin/med-consulting/consulting/{id}', 'MedicalConsultingController@single_consulting');
+	Route::post('admin/med-consulting/consulting/{id}', 'MedicalConsultingController@reply_message');
+
+	/**
+	 * Doctor's profile related routes (back-end)
+	 *
+	 */
+	Route::get('admin/doctors/list', 'DoctorController@index');
+	Route::post('admin/doctors/list', 'DoctorController@operations');
+
+	Route::get('admin/doctors/create', 'DoctorController@create');
+	Route::post('admin/doctors/create', 'DoctorController@store');
+
+	Route::get('admin/doctors/list/{id}/edit', 'DoctorController@edit');
+	Route::post('admin/doctors/list/{id}/edit', 'DoctorController@update');
+
+	Route::get('admin/doctors/list/{id}/delete', 'DoctorController@show');
+	Route::post('admin/doctors/list/{id}/delete', 'DoctorController@destroy');
+
+	/**
+	 * Banner's profile related routes (back-end)
+	 *
+	 */
+	Route::get('admin/banners/list', 'BannerController@index');
+	Route::post('admin/banners/list', 'BannerController@operations');
+
+	Route::get('admin/banners/create', 'BannerController@create');
+	Route::post('admin/banners/create', 'BannerController@store');
+
+	Route::get('admin/banners/list/{id}/edit', 'BannerController@edit');
+	Route::post('admin/banners/list/{id}/edit', 'BannerController@update');
+
+	Route::get('admin/banners/list/{id}/delete', 'BannerController@show');
+	Route::post('admin/banners/list/{id}/delete', 'BannerController@destroy');
+
+	/**
+	 * Social Media profile related routes (back-end)
+	 *
+	 */
+	Route::get('admin/social-media', 'SocialMediaController@index');
+	Route::post('admin/social-media', 'SocialMediaController@operations');
+
+	Route::get('admin/social-media/create', 'SocialMediaController@create');
+	Route::post('admin/social-media/create', 'SocialMediaController@store');
+
+	Route::get('admin/social-media/{id}/edit', 'SocialMediaController@edit');
+	Route::post('admin/social-media/{id}/edit', 'SocialMediaController@update');
+
+	Route::get('admin/social-media/{id}/delete', 'SocialMediaController@show');
+	Route::post('admin/social-media/{id}/delete', 'SocialMediaController@destroy');
+
+	/**
+	 * Friendly sites' profile related routes (back-end)
+	 *
+	 */
+	Route::get('admin/friendly-sites/list', 'FriendlySitesController@index');
+	Route::post('admin/friendly-sites/list', 'FriendlySitesController@operations');
+
+	Route::get('admin/friendly-sites/create', 'FriendlySitesController@create');
+	Route::post('admin/friendly-sites/create', 'FriendlySitesController@store');
+
+	Route::get('admin/friendly-sites/list/{id}/edit', 'FriendlySitesController@edit');
+	Route::post('admin/friendly-sites/list/{id}/edit', 'FriendlySitesController@update');
+
+	Route::get('admin/friendly-sites/list/{id}/delete', 'FriendlySitesController@show');
+	Route::post('admin/friendly-sites/list/{id}/delete', 'FriendlySitesController@destroy');
+
+	/**
+	 * Page's profile related routes (back-end)
+	 *
+	 */
+	Route::get('admin/pages/create', 'PagesController@create');
+	Route::post('admin/pages/create', 'PagesController@store');
+
+	Route::get('admin/pages', 'PagesController@index');
+	Route::post('admin/pages', 'PagesController@show');
+
+	Route::get('admin/pages/{id}/edit', 'PagesController@edit');
+	Route::post('admin/pages/{id}/edit', 'PagesController@update');
+
+	Route::get('admin/pages/{id}/delete', 'PagesController@confirm_delete');
+	Route::DELETE('admin/pages/{id}/destroy', 'PagesController@destroy');
+
+	/**
+	 * Photo Gallery related routes (back-end)
+	 *
+	 */
+	Route::get('admin/pgallery/create', 'GalleryController@create');
+	Route::post('admin/pgallery/create', 'GalleryController@store');
+
+	Route::get('admin/pgallery/list', 'GalleryController@index');
+	Route::post('admin/pgallery/list', 'GalleryController@operations');
+
+	Route::get('admin/pgallery/{id}/edit', 'GalleryController@edit');
+	Route::post('admin/pgallery/{id}/edit', 'GalleryController@update');
+
+	Route::get('admin/pgallery/{id}/delete', 'GalleryController@show');
+	Route::post('admin/pgallery/{id}/delete', 'GalleryController@destroy');
+
+	/**
+	 * Photo Gallery related routes (back-end)
+	 *
+	 */
+	Route::get('admin/vgallery/create-album', 'VGalleryController@create_album');
+	Route::post('admin/vgallery/create-album', 'VGalleryController@store_album');
+
+	Route::get('admin/vgallery/create', 'VGalleryController@create');
+	Route::post('admin/vgallery/create', 'VGalleryController@store');
+
+	Route::get('admin/vgallery/list', 'VGalleryController@index');
+	Route::post('admin/vgallery/list', 'VGalleryController@operations');
+
+	Route::get('admin/vgallery/{id}/edit', 'VGalleryController@edit');
+	Route::post('admin/vgallery/{id}/edit', 'VGalleryController@update');
+
+	Route::get('admin/vgallery/video/{id}/edit', 'VGalleryController@edit_video');
+	Route::post('admin/vgallery/video/{id}/edit', 'VGalleryController@update_video');
+
+	Route::get('admin/vgallery/{id}/delete', 'VGalleryController@show');
+	Route::post('admin/vgallery/{id}/delete', 'VGalleryController@destroy');
+
+	Route::get('admin/vgallery/video/{id}/delete', 'VGalleryController@show_video');
+	Route::post('admin/vgallery/video/{id}/delete', 'VGalleryController@destroy_video');
+
+});
+
+/*********************************************************************************/
+
+/*
+ * News related routes (front-end)
+ */
+Route::get('news', 'NewsController@news_list');
+Route::get('news/{id}', 'NewsController@single_news');
+
+/*
+ * Comments related routes (front-end)
+ */
+Route::post('news/{id}', 'CommentsController@store');
+
+/*
+ * SpecialPages related routes (front-end)
+ */
+Route::get('specialpages/{id}', 'SpecialPagesController@show');
+
+/**
+ * Contact Us related routes (front-end)
+ */
+Route::get('contact-us', 'ContactUsFrontEndController@create');
+Route::post('contact-us', 'ContactUsFrontEndController@store');
+
+/**
+ * Medical Consulting related routes (front-end)
+ */
+Route::get('med-consulting', 'MedicalConsultingController@create');
+Route::post('med-consulting', 'MedicalConsultingController@store');
+
+/**
+ * Photo Gallery related routes (Front-End)
+ */
+
+Route::get('pgallery', 'GalleryController@albums_list');
+
+/**
+ * Video Gallery related routes (Front-End)
+ */
+
+Route::get('vgallery', 'VGalleryController@albums_list');
+
+Route::get('page/{path}', 'PagesController@view_page');

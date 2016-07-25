@@ -1,0 +1,64 @@
+@extends('frontend.master')
+@section('content')
+    
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>معرض الفيديو</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="single-product-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcroumb">
+                        <a href="#">الرئيسية</a> / 
+                        <a href="/vgallery">معرض الفيديو</a>
+                    </div>
+                </div>
+            </div>
+            
+@if ($albums->count())
+@foreach($albums as $album)
+<div class="row">
+  <h1 class="video-dir title">{{$album->name}}</h1>
+  @foreach($videos as $video)
+  @if ($album->id == $video->vgallery_id)
+<div class="col-md-3">
+  <div class="video-dir">{!!$video->link!!}</div>
+  </div>
+    @endif
+@endforeach
+  </div>
+
+@endforeach
+@endif
+</div>
+</div>
+
+@endsection
+@section('custom-css')
+<style type="text/css">
+iframe{
+    width: 300px;
+    height: 150px;
+    direction: rtl;
+    padding: 5px;
+}
+.video-dir{
+    direction: rtl !important;
+}
+.title{
+    background-color: #4E2630;
+    color: #FFF;
+    padding: 6px;
+}
+</style>
+@endsection
+@stop

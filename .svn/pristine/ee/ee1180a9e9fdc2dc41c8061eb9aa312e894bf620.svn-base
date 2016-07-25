@@ -1,0 +1,23 @@
+/**
+ * CSS file specified for dashboard
+ * only to change the direction (RTL)
+ */        
+        <style type="text/css">
+            .navbar-coll{
+                float: right !important;
+                margin-right: 253px !important;
+            }
+            a.nav-bar.sidebar-toggle{
+                float: right !important;
+                margin-right: 253px !important;
+            }
+            header.header{
+                margin-right: -250px !important;
+            }
+            .right-side{
+                margin-left: 0px !important;
+            }
+            a#back-to-top.btn.btn-primary.btn-lg.back-to-top{
+                display: none !important;
+            }
+        </style>

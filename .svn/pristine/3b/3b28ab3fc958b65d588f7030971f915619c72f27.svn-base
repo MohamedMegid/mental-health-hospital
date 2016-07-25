@@ -1,0 +1,87 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Application Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the routes for an application.
+| It's a breeze. Simply tell Laravel the URIs it should respond to
+| and give it the controller to call when that URI is requested.
+|
+*/
+
+/*
+ * News related routes (back-end)
+ */
+Route::get('admin/news/create/{id}', 'NewsController@create');
+Route::post('admin/news/create/{id}', 'NewsController@store');
+
+Route::get('admin/news/{id}/edit', 'NewsController@edit');
+Route::post('admin/news/{id}/edit', 'NewsController@update');
+
+Route::get('admin/news/{id}/delete', 'NewsController@show');
+Route::post('admin/news/{id}/delete', 'NewsController@destroy');
+
+Route::get('admin/news', 'NewsController@index');
+Route::post('admin/news', 'NewsController@operations');
+
+/*
+ * Comments related routes (back-end)
+ */
+Route::get('admin/comments', 'CommentsController@index');
+Route::post('admin/comments', 'CommentsController@update');
+
+/**
+ * Special pages like vision & mission (back-end)
+ */
+Route::get('admin/specialpages/{id}', 'SpecialPagesController@create');
+Route::post('admin/specialpages/{id}', 'SpecialPagesController@store');
+
+Route::get('admin/specialpages/{id}/edit', 'SpecialPagesController@edit');
+Route::post('admin/specialpages/{id}/edit', 'SpecialPagesController@update');
+
+/**
+ * Contact Us related routes (back-end)
+ */
+Route::get('admin/contact-us/gmap', 'ContactUsController@show');
+Route::post('admin/contact-us/gmap', 'ContactUsController@store');
+
+Route::get('admin/contact-us/gmap/edit', 'ContactUsController@edit');
+Route::post('admin/contact-us/gmap/edit', 'ContactUsController@update');
+
+Route::get('admin/contact-us/cont-info', 'ContactUsController@create');
+Route::post('admin/contact-us/cont-info', 'ContactUsController@save');
+
+Route::get('admin/contact-us/cont-info/edit', 'ContactUsController@edit_contact_info');
+Route::post('admin/contact-us/cont-info/edit', 'ContactUsController@update_contact_info');
+
+Route::get('admin/contact-us/contacts', 'ContactUsController@index');
+Route::post('admin/contact-us/contacts', 'ContactUsController@destroy');
+
+Route::get('admin/contact-us/contacts/{id}', 'ContactUsController@single_contact');
+Route::post('admin/contact-us/contacts/{id}', 'ContactUsController@reply_message');
+
+/*********************************************************************************/
+
+/*
+ * News related routes (front-end)
+ */
+Route::get('news', 'NewsController@news_list');
+Route::get('news/{id}', 'NewsController@single_news');
+
+/*
+ * Comments related routes (front-end)
+ */
+Route::post('news/{id}', 'CommentsController@store');
+
+/*
+ * SpecialPages related routes (front-end)
+ */
+Route::get('specialpages/{id}', 'SpecialPagesController@show');
+
+/**
+ * Contact Us related routes (front-end)
+ */
+Route::get('contact-us', 'ContactUsFrontEndController@create');
+Route::post('contact-us', 'ContactUsFrontEndController@store');

@@ -1,0 +1,90 @@
+<?php $__env->startSection('content'); ?>
+    
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>الاخبار</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="single-product-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcroumb">
+                        <a href="#">الرئيسية</a> / 
+                        <a href="/news">قائمة الاخبار</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="product-content-left">    
+                        <?php if($news->count()): ?>
+                            <?php foreach($news as $view): ?>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="product-images">
+                                            <div class="product-main-img">
+                                                <img src="/img/uploaded/<?php echo e($view->basic_photo); ?>" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="product-inner">
+                                            <h2 class="product-name"><?php echo e($view->title); ?></h2>
+                                            <div class="tab-content">
+                                                    <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                                        <h2>ملخص الخبر</h2>  
+                                                        <h5><?php echo e($view->summary); ?></h5>
+                                                    </div>
+                                                </div>
+                                               
+                                            
+                                            <div class="product-inner-category">
+                                                <p>تاريخ الخبر: <a href="#"><?php echo e($view->created_at); ?></a>.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="product-inner">
+                                            <div class="product-inner-price">
+                                                <ins></ins> <del></del>
+                                            </div>
+                                            <div class="product-inner-price">
+                                                <a href="/news/<?php echo e($view->id); ?>">تفاصيل الخبر</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <?php echo $__env->make('frontend.blocks.leftsidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-pagination text-center">
+                        <nav>
+                            <ul class="pagination">
+                                <?php echo $news->render(); ?>
+
+                            </ul>
+                        </nav>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontend.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

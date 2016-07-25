@@ -1,0 +1,140 @@
+<?php $__env->startSection('content-header'); ?>
+<!-- Main content -->
+<ol class="breadcrumb">
+    <li>
+        <a href="/admin/dashboard">
+            <i class="livicon" data-name="home" data-size="14" data-loop="true"></i>
+            الرئيسية
+        </a>
+    </li>
+    <li class="active">الاستشارات</li>
+</ol>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+<?php echo Form::open(array('method' => 'post')); ?>
+
+            <div class="row">
+                <div class="col-md-12">
+            <!-- BEGIN SAMPLE TABLE PORTLET-->
+                    <div class="portlet box primary">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="livicon" data-name="responsive" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                    استعراض كل رسائل الاستشارات
+                                </div>
+                            </div>
+
+                            <div class="portlet-body">
+                                <div class="table-responsive">
+                                 <?php if($med->count()): ?>
+                                    <table class="table table-bordered">
+                                    <thead class="flip-content">
+                                        <tr>
+                                            <th>
+                                                <input type="checkbox" name="check_all" id="checkall">
+                                            </th>
+                                            <th>الاسم</th>
+                                            <th>االبريد الالكتروني</th>
+                                            <th>الجنس</th>
+                                            <th>حالة الرد</th>
+                                            <th>تاريخ الرسالة</th>
+                                            <th>تفاصيل الرسالة و الرد علىها</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach($med as $view): ?>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" name="check_list[<?php echo e($view->id); ?>]" class="check_list" value="<?php echo e($view->id); ?>">
+                                            </td>
+                                            <td>
+                                                <?php echo e($view->name); ?>
+
+                                            </td>
+                                            <td>
+                                                <?php echo e($view->mail); ?>
+
+                                            </td>
+                                            <td>
+                                                <?php if($view->sex == 1): ?>
+                                                    ذكر
+                                                <?php else: ?>
+                                                    انثى
+                                                <?php endif; ?>
+                                            </td>
+                                            <?php if($reply->count()): ?>
+                                                <td>
+                                                    <?php foreach($reply as $index): ?>
+                                                        <?php if($view->id == $index->med_id): ?>
+                                                            <p style="color:blue";>تم الرد</p>
+                                                            <?php break; ?>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                </td>
+                                            <?php endif; ?>
+                                            <td>
+                                                <?php echo e($view->created_at); ?>
+
+                                            </td>
+                                            <td>
+                                                <a href="/admin/med-consulting/consulting/<?php echo e($view->id); ?>">تفاصيل الرسالة</a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    <?php else: ?>
+                                    <div class="text-center"><h1>عفوا لا يوجد نتائج</h1> </div>
+                                    <?php endif; ?>
+                                    </tbody>
+
+                                </table>
+                                <div> <i class="fa fa-folder-o"></i> إجمالي : <?php echo e($med->count()); ?> رسالة </div>
+                            
+                            </div>
+                            <?php if(count($med)): ?>
+                            <div class="form-inline">
+                                <div class="form-group">             
+                                    <div class="form-group">
+                                        <input type="submit" name="delete" value="مسح" class="btn btn-primary">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <a href="/admin/med-consulting/consulting/all">الرد على جميع الرسائل</a>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+                            <?php echo Form::close(); ?>
+
+                    </div>
+                </div>
+            </div> 
+        </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="product-pagination text-center">
+                                <nav>
+                                    <ul class="pagination">
+                                        <?php echo $med->render(); ?>
+
+                                    </ul>
+                                </nav>                        
+                            </div>
+                        </div>
+                    </div>    
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('script'); ?>
+<script>
+    $('#checkall').change(function(event) {
+        if(this.checked) {
+            $('.check_list').each(function() {
+                this.checked = true;
+            });
+        }else{
+            $('.check_list').each(function() {
+                this.checked = false;
+            });        
+        }
+    });
+</script>
+<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('backend.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

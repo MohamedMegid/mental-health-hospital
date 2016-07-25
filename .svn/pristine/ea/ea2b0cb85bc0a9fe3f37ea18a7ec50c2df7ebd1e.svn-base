@@ -1,0 +1,76 @@
+<?php $__env->startSection('content'); ?>
+<div class="row">
+        <?php foreach($errors->all() as $error): ?>
+            <p class="alert alert-danger" style="width:100%;"><?php echo $error; ?></p>
+        <?php endforeach; ?>
+</div>
+<div class="row">
+    <div class="panel panel-primary">
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 head-ban">
+                    <div class="product-bit-title text-center">
+                        <h2 class="pag-head">الدخول</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <?php echo Form::open(['url'=>'/auth/login','class'=>'form form-horizontal']); ?>
+
+        <div class="form-group">
+            <?php echo Form::label('email','البريد الالكتروني:',['class'=>'col-sm-2 control-label']); ?>
+
+            <div class="col-sm-8">
+                <?php echo Form::text('email',Input::old('email'),['class'=>'form-control']); ?>
+
+            </div>
+        </div>
+        <div class="form-group">
+        <?php echo Form::label('password','كلمة السر:',['class'=>'col-sm-2 control-label']); ?>
+
+            <div class="col-sm-8">
+                <?php echo Form::password('password',['class'=>'form-control']); ?>
+
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="/auth/register">تسجيل</a>
+            <?php echo Form::submit('دخول',['class'=>'btn btn-default']); ?>
+
+        </div>
+        <?php echo Form::close(); ?>
+
+    </div>
+</div><br>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style type="text/css">
+
+    .form-content{
+        margin-right: 10px;
+    }
+    .heading{
+        float: right;
+    }
+    form.form.form-horizontal{
+        clear: both;
+        margin-right: 25px;
+        margin-bottom: 10px;
+    }
+    .footer-top-area, .footer-bottom-area{
+        display: none;
+    }
+</style>
+<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontend.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

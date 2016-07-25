@@ -1,0 +1,56 @@
+<?php $__env->startSection('content'); ?>
+    
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 head-ban">
+                    <div class="product-bit-title text-center">
+                        <h2 class="pag-head"><?php echo e($page->title); ?></h2>
+                    </div>
+                </div>
+                <div class="col-md-6 breadcroumb">
+                        <a href="/home" class="link-format">الرئيسية</a> / 
+                        <a href="#" class="link-format"><?php echo e($page->title); ?></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php if(!empty($page)): ?>
+    <div class="single-product-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="product-content-right"></div>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="product">
+                        <h2 class="news_title"><?php echo e($page->title); ?></h2>
+                    </div>
+            
+                    <div class="product">
+                        <p class="news_subject"><?php echo $page->body; ?></p>
+                    </div>
+                </div>
+                <?php if($pages->count()): ?>
+                <div class="col-md-3">
+                    <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title"><i class="livicon" data-name="user-add" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true"></i>الصفحات ذات الصلة</h3>
+                                    </div>
+                                    <div class="info_format">
+                                    <?php foreach($pages as $page): ?>
+                                        <a href="/page/<?php echo e($page->path); ?>/<?php echo e($page->id); ?>" class="link_class"><?php echo e($page->title); ?></a><br>
+                                    <?php endforeach; ?>
+                                    </div><br>
+                    </div>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontend.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

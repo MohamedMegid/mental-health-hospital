@@ -1,0 +1,136 @@
+
+@extends('frontend.master')
+@section('content')
+@if (!empty($first_banner))
+<div class="site-branding-area">
+      
+    <div class="slider-area">
+        
+        <div id="slide-list" class="carousel carousel-fade slide" data-ride="carousel">
+            
+            <div class="slide-bulletz">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ol class="carousel-indicators slide-indicators">
+                                <li data-target="#slide-list" data-slide-to="0" class="active"></li>
+                                <li data-target="#slide-list" data-slide-to="1"></li>
+                                <li data-target="#slide-list" data-slide-to="2"></li>
+                            </ol>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                    <div class="single-slide">
+                        <div class="slide-bg slide-one">
+                         <a href="{{$first_banner->link}}"><img class="slider-format" src="\img\uploaded\banner\{{$first_banner->basic_photo}}"></a>
+                        </div>
+                        <div class="slide-text-wrapper">
+                            <div class="slide-text">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-6">
+                                            <div class="slide-content">
+                                                <h2>{{$first_banner->title}}</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="single-slide">
+                        <div class="slide-bg slide-two">
+                            <a href="{{$second_banner->link}}"><img class="slider-format" src="\img\uploaded\banner\{{ $second_banner->basic_photo }}"></a>
+                        </div>
+                        <div class="slide-text-wrapper">
+                            <div class="slide-text">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-6">
+                                            <div class="slide-content">
+                                                <h2>{{$second_banner->title}}</h2>
+                                            </div>
+                                        </div>
+                                    </div>/
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="single-slide">
+                        <div class="slide-bg slide-three">
+                            <a href="{{$third_banner->link}}"><img class="slider-format" src="\img\uploaded\banner\{{ $third_banner->basic_photo }}"></a>
+                        </div>
+                        <div class="slide-text-wrapper">
+                            <div class="slide-text">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-6">
+                                            <div class="slide-content">
+                                                <h2>{{$third_banner->title}}</h2>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>        
+    </div> <!-- End slider area -->
+</div>
+@endif
+<br>
+<div class="row">
+    
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="edu_head">
+            <h2>قائمة المواقع الصديقة</h2>
+        </div>
+        <div>
+            @foreach($sites as $view)
+                <a href="{{$view->link}}">{{$view->title}}</a><br>
+            @endforeach
+        </div>
+    </div>
+    <div class="col-md-7"></div>
+    <div class="col-md-2">
+        <div class="border-format">
+            @foreach ($social as $item)
+                <a href="{{$item->link}}"><img src="\img\uploaded\social_media\{{$item->basic_photo}}" style="width:30px;height:35px;margin-right: 5px;"></a>
+            @endforeach
+        </div>
+    </div>
+</div>
+    @endsection
+    @section('custom-css')
+        <style type="text/css">
+            .slider-format{
+                height: 100%;
+                left: 0px;
+                position: absolute;
+                top: 0px;
+                width: 100%;
+                background-position: center center;
+                background-size: cover;
+            }
+            .border-format{
+                border: solid;
+                margin: 5px;
+                padding: 5px;
+            }
+        </style>
+    @endsection
+    @stop

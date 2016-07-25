@@ -1,0 +1,52 @@
+<?php $__env->startSection('content'); ?>
+<div class="row">
+                <div class="col-md-12">
+                    <section id="demo">
+                        <div class="center">
+                            <div class="smoothslides" id="myslideshow1">
+                                <?php foreach($banners as $banner): ?>
+                                    <a href="<?php echo e($banner->link); ?>"><img src="\img\uploaded\banner\<?php echo e($banner->basic_photo); ?>" alt="<?php echo e($banner->title); ?>"/></a>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+    <?php $__env->stopSection(); ?>
+    <?php $__env->startSection('scripts'); ?>
+        <script type="text/javascript" src="<?php echo e(asset('assets/frontend/js/jquery.js')); ?>"></script>
+        <script type="text/javascript" src="<?php echo e(asset('assets/frontend/js/smoothslides-2.1.0.min.js')); ?>"></script>
+        <script type="text/javascript">
+            $(document).ready( function() {
+
+                $('#myslideshow1').smoothSlides({
+                effectDuration: 3500
+                /* options seperated by commas */
+                });
+
+                $('xmp').click(function(){
+                    var saveContent = $(this).html();
+                    $("body").append("<input type='text' id='temp' style=''>");
+                    $("#temp").val(saveContent).select();
+                    document.execCommand("copy");
+                    $("#temp").remove();
+                    $("body").append('<div class="message">Copied To Clipboard</div>');
+                    $(".message").slideDown();
+                    setTimeout(function(){
+                        $(".message").slideUp(function(){
+                            $(this).remove();
+                        });
+                    }, 1000)
+                });
+
+            });
+        </script>
+    <?php $__env->stopSection(); ?>
+    <?php $__env->startSection('custom-css'); ?>
+    <link rel="stylesheet" href="<?php echo e(asset('assets/frontend/css/smoothslides.theme.css')); ?>">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,900|Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="<?php echo e(asset('assets/frontend/css/stylesheet.css')); ?>">
+        
+    <?php $__env->stopSection(); ?>
+    <?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontend.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

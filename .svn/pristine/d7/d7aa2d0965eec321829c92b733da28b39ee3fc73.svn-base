@@ -1,0 +1,60 @@
+
+@extends('frontend.master')
+@section('content')
+    
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>معرض الصور</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="single-product-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcroumb">
+                        <a href="#">الرئيسية</a> / 
+                        <a href="/pgallery">معرض الصور</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="color: #fff; background: #000;">
+                <div style="padding: 40px 0; width: 960px; margin: 0 auto; height: auto;">
+                    <div id="gallery">
+                            @foreach ($albums as $album)
+                              <div class="album" data-jgallery-album-title={{$album->name}}>
+                                 <h1>{{ $album->name }}</h1>
+                                 @foreach($images as $image)
+                                   @if ($image->pgallery_id == $album->id)
+                                   <a href="/img/uploaded/pgallery/{{$image->images}}"><img src="/img/uploaded/pgallery/{{$image->images}}"  data-jgallery-bg-color="#3e3e3e" data-jgallery-text-color="#fff" /></a>
+                                   @endif
+                                 @endforeach
+                              </div>
+                           @endforeach
+                       </div>
+                </div>
+            </div>
+      </div>
+    </div>
+@endsection
+@section('scripts')
+ <link rel="stylesheet" type="text/css" media="all" href="{{asset('assets/frontend/pgallery/css/font-awesome.min.css') }}" />
+    <link rel="stylesheet" type="text/css" media="all" href="{{asset('assets/frontend/pgallery/css/jgallery.min.css') }}" />
+    <script type="text/javascript" src="{{asset('assets/frontend/pgallery/js/jquery-2.0.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{asset('assets/frontend/pgallery/js/tinycolor-0.9.16.min.js') }}"></script>
+    <script type="text/javascript" src="{{asset('assets/frontend/pgallery/js/jgallery.min.js') }}"></script>
+    <script type="text/javascript">
+    $( function() {
+        $( '#gallery' ).jGallery( {
+            'mode': 'standard'
+        } );
+    } );
+    </script>
+@endsection
+@stop

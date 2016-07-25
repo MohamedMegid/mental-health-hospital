@@ -1,0 +1,15 @@
+<div class="edu_head">
+	<h2>التثقيفية</h2>
+</div>
+<div>
+@foreach($educational_news as $view)
+	<a href="/news/{{$view->id}}"><img src="/img/uploaded/{{$view->basic_photo}}" alt="" class="img_detail">
+	<div class="para_format">{{$view->summary}}</div></a>
+@endforeach
+</div>
+
+<h2 class="ach_head">الانجازات</h2>
+@foreach($achievements as $view)
+	<a href="/news/{{$view->id}}"><img src="/img/uploaded/{{$view->basic_photo}}" alt="" class="img_detail">
+	<div class="para_format">{{$view->summary}}</div></a>
+@endforeach

@@ -1,0 +1,63 @@
+    <div class="col-md-8 col-md-offset-2 form-content">
+        <h3 class="heading" align="center">Register</h3>
+        <?php foreach($errors->all() as $error): ?>
+            <p class="alert alert-danger"><?php echo $error; ?></p>
+        <?php endforeach; ?>
+        <?php echo Form::open(['url'=>'/auth/register','class'=>'form form-horizontal','style'=>'margin-top:50px']); ?>
+
+        <div class="form-group">
+            <?php echo Form::label('name','Name:',['class'=>'col-sm-3 control-label']); ?>
+
+            <div class="col-sm-8">
+                <?php echo Form::text('name',Input::old('name'),['class'=>'form-control']); ?>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo Form::label('email','Email:',['class'=>'col-sm-3 control-label']); ?>
+
+            <div class="col-sm-8">
+                <?php echo Form::text('email',Input::old('email'),['class'=>'form-control']); ?>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo Form::label('password','Password:',['class'=>'col-sm-3 control-label']); ?>
+
+            <div class="col-sm-8">
+                <?php echo Form::password('password',['class'=>'form-control']); ?>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo Form::label('password_confirmation','Confirm Password:',['class'=>'col-sm-3 control-label']); ?>
+
+            <div class="col-sm-8">
+                <?php echo Form::password('password_confirmation',['class'=>'form-control']); ?>
+
+            </div>
+        </div>
+        <div class="text-center">
+            <?php echo Form::submit('Register',['class'=>'btn btn-default']); ?>
+
+        </div>
+        <?php echo Form::close(); ?>
+
+    </div>
+
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+    p.alert.alert-danger{
+        direction: rtl;
+    }
+</style>
+</head>

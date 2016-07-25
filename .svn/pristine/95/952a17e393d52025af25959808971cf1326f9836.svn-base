@@ -1,0 +1,52 @@
+@extends('frontend.master')
+@section('content')
+
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 head-ban">
+                    <div class="product-bit-title text-center">
+                        <h2 class="pag-head">{{$page->title}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="single-product-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcroumb">
+                        <a href="#">الرئيسية</a> / 
+                        <a href="#">{{$page->title}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="product-content-right"></div>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="product">
+                        <h2 class="news_title">{{$page->title}}</h2>
+                    </div>
+            
+                    <div class="product">
+                        <p class="news_subject">{{$page->body}}</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="edu_head">
+                        <h2>الصفحات ذات الصلة</h2>
+                        @foreach($pages as $page)
+                            <a href="/page/{{$page->path}}/{{$page->id}}" class="link_class">{{$page->title}}</a><br>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@stop
